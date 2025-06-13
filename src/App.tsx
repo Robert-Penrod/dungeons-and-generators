@@ -17,7 +17,7 @@ function App() {
         <AppShell
             header={{ height: 60 }}
             navbar={{
-                width: 300,
+                width: 200,
                 breakpoint: "sm",
                 collapsed: { mobile: !opened },
             }}
