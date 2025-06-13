@@ -1,5 +1,5 @@
 const MagicItemPage = () => {
-    return <div>MagicItemPage</div>;
+    return <div>Magic Item Page</div>;
 };
 
 export default MagicItemPage;
