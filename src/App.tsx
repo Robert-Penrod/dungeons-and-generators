@@ -1,9 +1,17 @@
-import { AppShell, Burger, Group } from "@mantine/core";
+import { AppShell, Burger, Flex, Group, Stack, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { TbCrystalBall } from "react-icons/tb";
+import { Link, Route, Routes } from "react-router";
 import "./App.css";
+import HomePage from "./pages/HomePage";
+import MagicItemPage from "./pages/MagicItemPage";
 
 function App() {
-    const [opened, { toggle }] = useDisclosure();
+    const [opened, { toggle, close }] = useDisclosure();
+
+    const navbarLinks = [
+        { to: "/magic items", label: "Magic Items", icon: <TbCrystalBall /> },
+    ];
 
     return (
         <AppShell
@@ -16,20 +24,66 @@ function App() {
             padding='md'
         >
             <AppShell.Header>
-                <Group>
+                <Flex p='md'>
                     <Burger
                         opened={opened}
                         onClick={toggle}
                         hiddenFrom='sm'
                         size='sm'
+                        mr='md'
                     />
-                    <div>Logo</div>
-                </Group>
+                    <Link
+                        to='/'
+                        style={{ textDecoration: "none" }}
+                        onMouseDown={() => {
+                            close();
+                        }}
+                    >
+                        <Group gap='xs'>
+                            <img
+                                src='/favicon.ico'
+                                alt='App Logo'
+                                style={{
+                                    width: "40px",
+                                    height: "40px",
+                                    marginTop: "-10px",
+                                }}
+                            />
+                            <Text fw='bold' visibleFrom='sm'>
+                                Dungeons & Generators
+                            </Text>
+                            <Text fw='bold' hiddenFrom='sm'>
+                                D&G
+                            </Text>
+                        </Group>
+                    </Link>
+                </Flex>
             </AppShell.Header>
 
-            <AppShell.Navbar p='md'>Navbar</AppShell.Navbar>
+            <AppShell.Navbar p='md'>
+                <Stack gap={0}>
+                    {navbarLinks.map((link) => (
+                        <Link
+                            key={link.to}
+                            to={link.to}
+                            onMouseDown={() => {
+                                close();
+                            }}
+                        >
+                            <Group>
+                                {link.icon} <Text>{link.label}</Text>
+                            </Group>
+                        </Link>
+                    ))}
+                </Stack>
+            </AppShell.Navbar>
 
-            <AppShell.Main>Main</AppShell.Main>
+            <AppShell.Main>
+                <Routes>
+                    <Route path='/' element={<HomePage />} />
+                    <Route path='/Magic Items' element={<MagicItemPage />} />
+                </Routes>
+            </AppShell.Main>
         </AppShell>
     );
 }
