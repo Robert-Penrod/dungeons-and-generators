@@ -7,9 +7,22 @@ import {
     Textarea,
     Title,
 } from "@mantine/core";
+import { useEffect } from "react";
 import { RiAiGenerate } from "react-icons/ri";
 
 const MagicItemPage = () => {
+    useEffect(() => {
+        test();
+    }, []);
+
+    const test = async () => {
+        console.log("test");
+        const response = await fetch(
+            "https://generatemagicitems-o25cnaqxeq-uc.a.run.app"
+        );
+        console.log(response);
+    };
+
     return (
         <>
             <Stack align='center' mb='xl'>
