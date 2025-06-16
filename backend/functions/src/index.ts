@@ -8,8 +8,8 @@ import rateLimit from "express-rate-limit";
 import * as logger from "firebase-functions/logger";
 import * as functions from "firebase-functions/v2/https";
 import { z } from "zod";
-import { chatCompletion } from "./openai";
-import { UpstashRateLimitStore } from "./UpstashRateLimitStore";
+import { chatCompletion } from "./services/openai";
+import { UpstashRateLimitStore } from "./services/UpstashRateLimitStore";
 
 const app = express();
 
@@ -57,9 +57,11 @@ app.get("/hello-world", (req, res) => {
 
 // POST: generate-magic-item
 const generateMagicItemSchema = z.object({
-    count: z.number().min(1).max(4).default(1).optional(),
+    count: z.number().min(1).max(4).default(1),
     name: z.string().optional(),
     rarity: z.string().optional(),
+    attunement: z.boolean().optional(),
+    cost: z.number().optional(),
 });
 type GenerateMagicItemRequest = z.infer<typeof generateMagicItemSchema>;
 type GenerateMagicItemResponse = ApiResponse<{ items: string[] }>;
@@ -82,20 +84,29 @@ app.post(
         }
 
         // Destructure validated data
-        const { count, rarity, name } = parsed.data;
-        console.log(count?.toString() || "" + rarity?.toString() || "" + name);
+        const { count } = parsed.data;
 
         try {
             // Magic Item Generation
-            const magicItemResponse = await chatCompletion(
-                `Generate a D&D 5e magic item. Output only in this format:
+            // Generate N completions concurrently
+            const completions = await Promise.all(
+                Array.from({ length: count }).map(() =>
+                    chatCompletion(
+                        `Generate a D&D 5e magic item. Output only in this format:
 Name: [Item Name]
+Rarity: [common, uncommon, rare, very rare, or legendary]
+Attunement: [Yes/No]
+Cost: [Gold piece value appropriate for its rarity]
 Description: [Item effects and properties in 1-3 sentences.]`
+                    )
+                )
             );
+
+            // Return completions
             res.json({
                 success: true,
                 data: {
-                    items: [magicItemResponse],
+                    items: completions,
                 },
             });
             return;
