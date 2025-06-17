@@ -8,6 +8,7 @@ import rateLimit from "express-rate-limit";
 import * as logger from "firebase-functions/logger";
 import * as functions from "firebase-functions/v2/https";
 import { z } from "zod";
+import { createGlobalRateLimiter } from "./services/globalRateLimit";
 import { chatCompletion } from "./services/openai";
 import { UpstashRateLimitStore } from "./services/UpstashRateLimitStore";
 
@@ -35,6 +36,9 @@ const limiter = rateLimit({
     }),
 });
 app.use(limiter);
+
+// Global rate limiter
+app.use(createGlobalRateLimiter(redis));
 
 // Log requests
 app.use((req, res, next) => {
