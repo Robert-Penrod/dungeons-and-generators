@@ -21,6 +21,7 @@ interface MagicItemData {
 const MagicItemPage = () => {
     const [magicItemData, setMagicItemData] = useState<MagicItemData[]>();
     const [isGenerating, setIsGenerating] = useState<boolean>(false);
+    const [prompt, setPrompt] = useState<string>("");
 
     const handleMagicItemGenerate = async () => {
         setIsGenerating(true);
@@ -35,6 +36,7 @@ const MagicItemPage = () => {
                 },
                 body: JSON.stringify({
                     count: 4,
+                    ...(prompt ? { userPrompt: prompt } : {}),
                 }),
             }
         );
@@ -69,7 +71,14 @@ const MagicItemPage = () => {
         <>
             <Stack align='center' mb='xl'>
                 <Title mx='auto'>Magic Item Generator</Title>
-                <Textarea autosize w='90%' placeholder='(prompt)' />
+                <Textarea
+                    onChange={(e) => {
+                        setPrompt(e.target.value);
+                    }}
+                    autosize
+                    w='90%'
+                    placeholder='(prompt)'
+                />
                 <Button
                     onClick={handleMagicItemGenerate}
                     leftSection={<RiAiGenerate />}
@@ -84,19 +93,27 @@ const MagicItemPage = () => {
                 </Center>
             ) : (
                 <SimpleGrid
-                    cols={{ base: 2, xs: 1, sm: 2, md: 2, lg: 3, xl: 3 }}
+                    cols={{ base: 1, xs: 1, sm: 1, md: 2, lg: 3, xl: 3 }}
                 >
                     {magicItemData?.map((magicItem, index) => {
                         return (
                             <Card key={index} p='xl'>
                                 <Card.Section>
-                                    <Text contentEditable size='lg' fw={1000}>
+                                    <Text
+                                        contentEditable
+                                        suppressContentEditableWarning
+                                        size='lg'
+                                        fw={1000}
+                                    >
                                         {magicItem.name}
                                     </Text>
                                 </Card.Section>
                                 <Divider mb={5} mt={3} mx={-20} size='xl' />
                                 <Card.Section>
-                                    <Text contentEditable>
+                                    <Text
+                                        contentEditable
+                                        suppressContentEditableWarning
+                                    >
                                         {magicItem.description}
                                     </Text>
                                 </Card.Section>
