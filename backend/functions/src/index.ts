@@ -182,6 +182,7 @@ const generateMagicItemSchema = z.object({
     rarity: z.string().optional(),
     attunement: z.boolean().optional(),
     cost: z.number().optional(),
+    userPrompt: z.string().optional(),
 });
 type GenerateMagicItemRequest = z.infer<typeof generateMagicItemSchema>;
 type GenerateMagicItemResponse = ApiResponse<{ items: string[] }>;
@@ -204,7 +205,8 @@ app.post(
         }
 
         // Destructure validated data
-        const { count } = parsed.data;
+        const { count, name, rarity, attunement, cost, userPrompt } =
+            parsed.data;
 
         try {
             // Magic Item Generation
@@ -217,11 +219,17 @@ app.post(
 Very the items you output, here are examples of various magic item titles:
 ${exampleMagicItemNames}
 
+${
+    userPrompt === undefined
+        ? ""
+        : `Here is the user prompt to influence your generation: ${userPrompt}`
+}
+
 Generate a D&D 5e magic item. Output only in this format:
-Name: [Item Name]
-Rarity: [common, uncommon, rare, very rare, or legendary]
-Attunement: [Yes/No]
-Cost: [Gold piece value appropriate for its rarity]
+Name: ${name ?? "[Item Name]"}
+Rarity: ${rarity ?? "[common, uncommon, rare, very rare, or legendary]"}
+Attunement: ${attunement === undefined ? "[Yes/No]" : attunement ? "Yes" : "No"}
+Cost: ${cost ?? "[Gold piece value appropriate for its rarity]"}
 
 [Item effects and properties in 1-3 sentences.]
 `
