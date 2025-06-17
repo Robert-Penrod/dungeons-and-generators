@@ -10,7 +10,7 @@ export async function chatCompletion(
 ): Promise<string> {
     const completion = await openai.chat.completions.create({
         messages: [{ role: "system", content: prompt }],
-        model: "gpt-4.1-mini",
+        model: "gpt-4.1",
     });
 
     return completion.choices[0].message.content || "";
