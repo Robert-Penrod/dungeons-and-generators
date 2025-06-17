@@ -93,7 +93,8 @@ const MagicItemPage = () => {
                                     <Text contentEditable size='lg' fw={1000}>
                                         {magicItem.name}
                                     </Text>
-                                </Card.Section>{" "}
+                                </Card.Section>
+                                <Divider mb={5} mt={3} mx={-20} size='xl' />
                                 <Card.Section>
                                     <Text contentEditable>
                                         {magicItem.description}
