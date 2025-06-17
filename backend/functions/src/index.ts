@@ -222,7 +222,8 @@ Name: [Item Name]
 Rarity: [common, uncommon, rare, very rare, or legendary]
 Attunement: [Yes/No]
 Cost: [Gold piece value appropriate for its rarity]
-Description: [Item effects and properties in 1-3 sentences.]
+
+[Item effects and properties in 1-3 sentences.]
 `
                     )
                 )
