@@ -6,18 +6,26 @@ import {
     Loader,
     SimpleGrid,
     Stack,
+    Text,
     Textarea,
     Title,
 } from "@mantine/core";
 import { useState } from "react";
 import { RiAiGenerate } from "react-icons/ri";
 
+interface MagicItemData {
+    name: string;
+    description: string;
+}
+
 const MagicItemPage = () => {
-    const [magicItemData, setMagicItemData] = useState([]);
-    const [isGenerating, setIsGenerating] = useState(false);
+    const [magicItemData, setMagicItemData] = useState<MagicItemData[]>();
+    const [isGenerating, setIsGenerating] = useState<boolean>(false);
 
     const handleMagicItemGenerate = async () => {
         setIsGenerating(true);
+
+        // Request Magic Items
         const response = await fetch(
             "https://api.dng.quest/generate-magic-item",
             {
@@ -30,9 +38,30 @@ const MagicItemPage = () => {
                 }),
             }
         );
+
+        // Parse magic item data
         const responseData = await response.json();
-        console.log(responseData.data.items);
-        setMagicItemData(responseData.data.items);
+        const itemStrings = responseData.data.items;
+        console.log(itemStrings);
+        const dataArray: MagicItemData[] = itemStrings.map(
+            (itemString: string) => {
+                const parsed = itemString.match(
+                    /Name:\s*([\s\S]*?)\s*(\w+:[\s\S]*)/
+                );
+                if (!parsed) return {};
+
+                const name = parsed[1];
+                const desc = parsed[2];
+
+                return {
+                    name: name,
+                    description: desc,
+                };
+            }
+        );
+
+        console.log(dataArray);
+        setMagicItemData(dataArray);
         setIsGenerating(false);
     };
 
@@ -54,9 +83,24 @@ const MagicItemPage = () => {
                     <Loader />
                 </Center>
             ) : (
-                <SimpleGrid cols={{ base: 2, sm: 1, md: 2, lg: 3, xl: 3 }}>
-                    {magicItemData.map((magicItem, index) => {
-                        return <Card key={index}>{magicItem}</Card>;
+                <SimpleGrid
+                    cols={{ base: 2, xs: 1, sm: 2, md: 2, lg: 3, xl: 3 }}
+                >
+                    {magicItemData?.map((magicItem, index) => {
+                        return (
+                            <Card key={index} p='xl'>
+                                <Card.Section>
+                                    <Text contentEditable size='lg' fw={1000}>
+                                        {magicItem.name}
+                                    </Text>
+                                </Card.Section>{" "}
+                                <Card.Section>
+                                    <Text contentEditable>
+                                        {magicItem.description}
+                                    </Text>
+                                </Card.Section>
+                            </Card>
+                        );
                     })}
                 </SimpleGrid>
             )}
