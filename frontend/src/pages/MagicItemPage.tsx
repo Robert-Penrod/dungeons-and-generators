@@ -1,17 +1,16 @@
 import {
     Button,
-    Card,
     Center,
     Divider,
     Loader,
     SimpleGrid,
     Stack,
-    Text,
     Textarea,
     Title,
 } from "@mantine/core";
 import { useState } from "react";
 import { RiAiGenerate } from "react-icons/ri";
+import ContentCard from "../components/ContentCard";
 
 interface MagicItemData {
     name: string;
@@ -53,7 +52,10 @@ const MagicItemPage = () => {
                 if (!parsed) return {};
 
                 // Bold Labels
-                parsed[2] = parsed[2].replace(/(\w+):/g, "<b>$1:</b>");
+                parsed[2] = parsed[2].replace(
+                    /(\w+):/g,
+                    "<strong>$1:</strong>"
+                );
 
                 const name = parsed[1];
                 const desc = parsed[2];
@@ -100,27 +102,11 @@ const MagicItemPage = () => {
                 >
                     {magicItemData?.map((magicItem, index) => {
                         return (
-                            <Card key={index} p='xl'>
-                                <Card.Section>
-                                    <Text
-                                        contentEditable
-                                        suppressContentEditableWarning
-                                        size='lg'
-                                        fw={1000}
-                                    >
-                                        {magicItem.name}
-                                    </Text>
-                                </Card.Section>
-                                <Divider mb={5} mt={3} mx={-20} size='xl' />
-                                <Card.Section>
-                                    <Text
-                                        contentEditable
-                                        suppressContentEditableWarning
-                                    >
-                                        {magicItem.description}
-                                    </Text>
-                                </Card.Section>
-                            </Card>
+                            <ContentCard
+                                key={index}
+                                title={magicItem.name}
+                                content={magicItem.description}
+                            />
                         );
                     })}
                 </SimpleGrid>
