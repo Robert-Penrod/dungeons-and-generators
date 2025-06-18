@@ -52,6 +52,9 @@ const MagicItemPage = () => {
                 );
                 if (!parsed) return {};
 
+                // Bold Labels
+                parsed[2] = parsed[2].replace(/(\w+):/g, "<b>$1:</b>");
+
                 const name = parsed[1];
                 const desc = parsed[2];
 
