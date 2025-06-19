@@ -51,11 +51,14 @@ const MagicItemPage = () => {
                 );
                 if (!parsed) return {};
 
-                // Bold Labels
-                parsed[2] = parsed[2].replace(
-                    /(\w+):/g,
-                    "<strong>$1:</strong>"
-                );
+                // Bold Labels, convert newlines to <p>line</p>
+                parsed[2] = parsed[2]
+                    .replace(/(\w+):/g, "<strong>$1:</strong>")
+                    .split("\n")
+                    .map((line) => `<p>${line}</p>`)
+                    .join("");
+
+                console.log(parsed[2]);
 
                 const name = parsed[1];
                 const desc = parsed[2];
