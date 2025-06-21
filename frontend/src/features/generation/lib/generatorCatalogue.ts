@@ -6,4 +6,4 @@ export const makeTitle = (key: string) =>
         .join(" ");
 
 /** Endpoint = "generate-" + key, unless overridden. */
-export const makeEndpoint = (key: string) => `generate-${key}`;
+export const makeEndpoint = (key: string) => `generate/${key}`;
