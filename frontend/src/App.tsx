@@ -3,8 +3,8 @@ import { useDisclosure } from "@mantine/hooks";
 import { TbCrystalBall } from "react-icons/tb";
 import { Link, Route, Routes } from "react-router";
 import "./App.css";
+import GenerationPage from "./pages/GenerationPage";
 import HomePage from "./pages/HomePage";
-import MagicItemPage from "./pages/MagicItemPage";
 
 function App() {
     const [opened, { toggle, close }] = useDisclosure();
@@ -81,7 +81,10 @@ function App() {
             <AppShell.Main>
                 <Routes>
                     <Route path='/' element={<HomePage />} />
-                    <Route path='/Magic Items' element={<MagicItemPage />} />
+                    <Route
+                        path='/Magic Items'
+                        element={<GenerationPage generatorType='magic-item' />}
+                    />
                 </Routes>
             </AppShell.Main>
         </AppShell>
