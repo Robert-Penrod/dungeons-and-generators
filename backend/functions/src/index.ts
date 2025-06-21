@@ -60,37 +60,6 @@ app.get("/hello-world", (req, res) => {
 });
 
 // POST: generate-magic-item
-/*
-const exampleMagicItems = `Name: Whispering Locket
-Rarity: Common
-Attunement: No
-Cost: 50 gp
-Description: While wearing this locket, you gain a +1 bonus to Wisdom saving throws. Once per long rest, you may automatically succeed on a single saving throw against being frightened or charmed.
-
-Name: Emberstep Sandals
-Rarity: Uncommon
-Attunement: Yes
-Cost: 500 gp
-Description: As a bonus action, you can activate the sandals to cast Misty Step, leaving a brief trail of embers that lightly obscure your previous space (lightly obscured until the end of your next turn). Recharge on a short or long rest. While wearing the sandals, you are immune to damage from non-magical fire.
-
-Name: Gravetide Scythe
-Rarity: Rare
-Attunement: Yes
-Cost: 5,000 gp
-Description: This eerie black-bladed scythe deals an additional 1d6 necrotic damage on a hit. When you reduce a creature to 0 hit points, you regain hit points equal to half the necrotic damage dealt, up to a maximum equal to your proficiency bonus each turn.
-
-Name: Crown of the Pale Moon
-Rarity: Very Rare
-Attunement: Yes
-Cost: 25,000 gp
-Description: While wearing the crown, you have darkvision out to 120 feet, resistance to radiant and necrotic damage, and advantage on Wisdom (Perception) checks made at night. Once per long rest, you can cast Moonbeam at 5th level or Greater Invisibility (self only).
-
-Name: Blade of the Worldwyrm
-Rarity: Legendary
-Attunement: Yes
-Cost: 100,000 gp
-Description: You deal an additional 2d8 acid or fire damage (choose with each attack). Once per short rest, you can exhale a 30-foot cone of acid or fire (your choice), dealing 8d6 damage (Dex save DC 18 for half). Once per long rest, you can cast Earthquake.`;
-*/
 const exampleMagicItemNames = `Potion of Healing
 
 Amulet of Proof Against Detection and Location
@@ -260,6 +229,12 @@ Cost: ${cost ?? "[Gold piece value appropriate for its rarity]"}
         }
     }
 );
+
+// POST: generate-character
+app.post("/generate-character");
+
+// POST: generate-location
+app.post("/generate-location");
 
 export const api = functions.onRequest(
     { maxInstances: 10, concurrency: 1, timeoutSeconds: 120 },

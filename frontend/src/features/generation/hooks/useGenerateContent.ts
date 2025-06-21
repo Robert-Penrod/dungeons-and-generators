@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { makeEndpoint, makeTitle } from "../lib/generatorCatalogue";
 import { parseContent, type ContentData } from "./../lib/parseContent";
 
@@ -6,8 +6,13 @@ export function useGenerateContent(generatorType: string) {
     const [data, setData] = useState<ContentData[]>();
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<Error | null>(null);
-
     const title = makeTitle(generatorType);
+
+    useEffect(() => {
+        setData(undefined);
+        setIsLoading(false);
+        setError(null);
+    }, [generatorType]);
 
     const generate = useCallback(
         async (count: number, prompt: string) => {
