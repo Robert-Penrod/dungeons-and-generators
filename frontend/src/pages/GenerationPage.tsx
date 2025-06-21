@@ -9,7 +9,7 @@ import {
     Textarea,
     Title,
 } from "@mantine/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RiAiGenerate, RiErrorWarningLine } from "react-icons/ri";
 import ContentCard from "../components/ContentCard";
 import { useGenerateContent } from "../features/generation/hooks/useGenerateContent";
@@ -23,6 +23,10 @@ const GenerationPage = (props: GenerationPageProps) => {
     const { data, isLoading, error, title, generate } = useGenerateContent(
         props.generatorType
     );
+
+    useEffect(() => {
+        setPrompt("");
+    }, [props]);
 
     return (
         <>
