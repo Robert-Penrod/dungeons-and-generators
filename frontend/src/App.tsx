@@ -1,5 +1,7 @@
 import { AppShell, Burger, Flex, Group, Stack, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { FaMapLocationDot } from "react-icons/fa6";
+import { IoPersonCircle } from "react-icons/io5";
 import { TbCrystalBall } from "react-icons/tb";
 import { Link, Route, Routes } from "react-router";
 import "./App.css";
@@ -11,6 +13,8 @@ function App() {
 
     const navbarLinks = [
         { to: "/magic items", label: "Magic Items", icon: <TbCrystalBall /> },
+        { to: "/characters", label: "Characters", icon: <IoPersonCircle /> },
+        { to: "/locations", label: "Locations", icon: <FaMapLocationDot /> },
     ];
 
     return (
@@ -84,6 +88,14 @@ function App() {
                     <Route
                         path='/Magic Items'
                         element={<GenerationPage generatorType='magic-item' />}
+                    />
+                    <Route
+                        path='/Characters'
+                        element={<GenerationPage generatorType='character' />}
+                    />
+                    <Route
+                        path='/Locations'
+                        element={<GenerationPage generatorType='location' />}
                     />
                 </Routes>
             </AppShell.Main>

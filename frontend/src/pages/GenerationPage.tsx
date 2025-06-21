@@ -49,7 +49,6 @@ const GenerationPage = (props: GenerationPageProps) => {
                         color='red'
                         icon={<RiErrorWarningLine size='1rem' />}
                         title='Uh-oh!'
-                        maw={480}
                     >
                         {error.message}
                     </Alert>
