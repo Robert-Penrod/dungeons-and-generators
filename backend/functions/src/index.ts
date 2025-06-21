@@ -8,6 +8,7 @@ import rateLimit from "express-rate-limit";
 import * as logger from "firebase-functions/logger";
 import * as functions from "firebase-functions/v2/https";
 import { z } from "zod";
+import { GeneratorKind, PROMPTS } from "./prompt";
 import { createGlobalRateLimiter } from "./services/globalRateLimit";
 import { chatCompletion } from "./services/openai";
 import { UpstashRateLimitStore } from "./services/UpstashRateLimitStore";
@@ -149,24 +150,14 @@ Book of Exalted Deeds
 Instrument of the Bards (Ollamh Harp, etc.)
 
 Efreeti Bottle`;
-const generateMagicItemSchema = z.object({
-    count: z.number().min(1).max(4).default(1),
-    name: z.string().optional(),
-    rarity: z.string().optional(),
-    attunement: z.boolean().optional(),
-    cost: z.number().optional(),
-    userPrompt: z.string().optional(),
-});
-type GenerateMagicItemRequest = z.infer<typeof generateMagicItemSchema>;
-type GenerateMagicItemResponse = ApiResponse<{ items: string[] }>;
 app.post(
     "/generate-magic-item",
     async (
-        req: Request<{}, {}, GenerateMagicItemRequest>,
-        res: Response<GenerateMagicItemResponse>
+        req: Request<{}, {}, GenerateItemRequest>,
+        res: Response<GenerateItemResponse>
     ) => {
         // Parse request body
-        const parsed = generateMagicItemSchema.safeParse(req.body);
+        const parsed = generateItemSchema.safeParse(req.body);
 
         // Check for bad parse
         if (!parsed.success) {
@@ -178,8 +169,7 @@ app.post(
         }
 
         // Destructure validated data
-        const { count, name, rarity, attunement, cost, userPrompt } =
-            parsed.data;
+        const { count, userPrompt } = parsed.data;
 
         try {
             // Magic Item Generation
@@ -199,10 +189,10 @@ ${
 }
 
 Generate a D&D 5e magic item. Output only in this format:
-Name: ${name ?? "[Item Name]"}
-Rarity: ${rarity ?? "[common, uncommon, rare, very rare, or legendary]"}
-Attunement: ${attunement === undefined ? "[Yes/No]" : attunement ? "Yes" : "No"}
-Cost: ${cost ?? "[Gold piece value appropriate for its rarity]"}
+Name: [Item Name]
+Rarity: [common, uncommon, rare, very rare, or legendary]
+Attunement: [Yes/No]
+Cost: [Gold piece value appropriate for its rarity]
 
 [Item effects and properties in 1-3 sentences.]
 `
@@ -230,11 +220,59 @@ Cost: ${cost ?? "[Gold piece value appropriate for its rarity]"}
     }
 );
 
-// POST: generate-character
-app.post("/generate-character");
+// Generation Schemas/Types
+const generateItemSchema = z.object({
+    count: z.number().min(1).max(4).default(1),
+    userPrompt: z.string().optional(),
+});
+type GenerateItemRequest = z.infer<typeof generateItemSchema>;
+type GenerateItemResponse = ApiResponse<{ items: string[] }>;
 
-// POST: generate-location
-app.post("/generate-location");
+// POST: generic generate
+app.post(
+    "/generate/:kind",
+    async (
+        req: Request<{ kind: GeneratorKind }, {}, GenerateItemRequest>,
+        res: Response<GenerateItemResponse>
+    ) => {
+        const kind = req.params.kind as GeneratorKind;
+
+        // Grab prompt & Validate
+        const makePrompt = PROMPTS[kind];
+        if (!makePrompt) {
+            return res
+                .status(404)
+                .json({ success: false, error: `Unknown generator ${kind}` });
+        }
+
+        // Validate body
+        const parsed = generateItemSchema.safeParse(req.body);
+        if (!parsed.success) {
+            return res
+                .status(400)
+                .json({ success: false, error: parsed.error.message });
+        }
+        const { count, userPrompt } = parsed.data;
+
+        try {
+            // Build prompt text
+            const basePrompt = makePrompt(userPrompt);
+
+            // Run N completions in parallel
+            const items = await Promise.all(
+                Array.from({ length: count }, () => chatCompletion(basePrompt))
+            );
+
+            // Send Response
+            return res.json({ success: true, data: { items } });
+        } catch (err) {
+            console.error(err);
+            return res
+                .status(500)
+                .json({ success: false, error: "Internal server error" });
+        }
+    }
+);
 
 export const api = functions.onRequest(
     { maxInstances: 10, concurrency: 1, timeoutSeconds: 120 },
