@@ -15,24 +15,29 @@ Cost: [Gold piece value appropriate for its rarity]
 Generate a colorful NPC for D&D 5e.
 ${userPrompt ? `Focus: ${userPrompt}` : ""}
 Format:
-Name: …
+Name: ...
 Race: ... 
 Occupation: ...
-Personality: [1 sentence.]
 
-Backstory: [1-3 sentences.]
+[1 sentence description.]
+
+Motivation: ...
+Flaw: ...
+Bond: ...
+
+"[quote from the character]"
 `,
 
     location: (userPrompt?: string) => `
 Generate a memorable fantasy location.
 ${userPrompt ? `Theme: ${userPrompt}` : ""}
 Format:
-Name: …
-Biome[Region/Climate]
+Name: ...
+Biome: ...
 
-Description: [1-3 sentences.]
+[1-3 sentence description.]
 
-Hooks: …
+Hooks: [3 brief hooks]
 `,
 } as const;
 
