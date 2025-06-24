@@ -56,6 +56,7 @@ Consequences: [rewards, loot, or consequences]
 
     quest: (userPrompt?: string) => `
 Generate a D&D 5e quest.
+${userPrompt ? `User prompt: ${userPrompt}` : ""}
 Format:
 Name: ...
 Level: #
