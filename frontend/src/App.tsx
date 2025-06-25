@@ -57,12 +57,7 @@ function App() {
                                     marginTop: "-10px",
                                 }}
                             />
-                            <Text fw='bold' visibleFrom='sm'>
-                                Dungeons & Generators
-                            </Text>
-                            <Text fw='bold' hiddenFrom='sm'>
-                                D&G
-                            </Text>
+                            <Text fw='bold'>DnG</Text>
                         </Group>
                     </Link>
                 </Flex>
