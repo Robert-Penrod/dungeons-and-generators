@@ -1,8 +1,6 @@
 import { AppShell, Burger, Flex, Group, Stack, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { FaExclamationCircle } from "react-icons/fa";
 import { FaMapLocationDot } from "react-icons/fa6";
-import { GiSeaCreature } from "react-icons/gi";
 import { IoPersonCircle } from "react-icons/io5";
 import { TbCrystalBall } from "react-icons/tb";
 import { Link, Route, Routes } from "react-router";
@@ -17,8 +15,8 @@ function App() {
         { to: "/magic-item", label: "Magic Items", icon: <TbCrystalBall /> },
         { to: "/character", label: "Characters", icon: <IoPersonCircle /> },
         { to: "/location", label: "Locations", icon: <FaMapLocationDot /> },
-        { to: "/encounter", label: "Encounters", icon: <GiSeaCreature /> },
-        { to: "/quest", label: "Quests", icon: <FaExclamationCircle /> },
+        // { to: "/encounter", label: "Encounters", icon: <GiSeaCreature /> },
+        // { to: "/quest", label: "Quests", icon: <FaExclamationCircle /> },
     ];
 
     return (
