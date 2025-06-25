@@ -25,6 +25,7 @@ const GenerationPage = (props: GenerationPageProps) => {
     );
 
     useEffect(() => {
+        console.log("Hello??");
         setPrompt("");
     }, [props.generatorType]);
 
@@ -36,6 +37,7 @@ const GenerationPage = (props: GenerationPageProps) => {
                     onChange={(e) => {
                         setPrompt(e.target.value);
                     }}
+                    value={prompt}
                     autosize
                     w='90%'
                     placeholder='(prompt)'
