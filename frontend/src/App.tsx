@@ -1,4 +1,12 @@
-import { AppShell, Burger, Flex, Group, Stack, Text } from "@mantine/core";
+import {
+    AppShell,
+    Avatar,
+    Burger,
+    Flex,
+    Group,
+    Stack,
+    Text,
+} from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { FaMapLocationDot } from "react-icons/fa6";
 import { IoPersonCircle } from "react-icons/io5";
@@ -30,34 +38,37 @@ function App() {
             padding='md'
         >
             <AppShell.Header>
-                <Flex p='md'>
-                    <Burger
-                        opened={opened}
-                        onClick={toggle}
-                        hiddenFrom='sm'
-                        size='sm'
-                        mr='md'
-                    />
-                    <Link
-                        to='/'
-                        style={{ textDecoration: "none" }}
-                        onMouseDown={() => {
-                            close();
-                        }}
-                    >
-                        <Group gap='xs'>
-                            <img
-                                src='/favicon.ico'
-                                alt='App Logo'
-                                style={{
-                                    width: "40px",
-                                    height: "40px",
-                                    marginTop: "-10px",
-                                }}
-                            />
-                            <Text fw='bold'>DnG</Text>
-                        </Group>
-                    </Link>
+                <Flex h='100%' p='md' justify='space-between' align='center'>
+                    <Flex>
+                        <Burger
+                            opened={opened}
+                            onClick={toggle}
+                            hiddenFrom='sm'
+                            size='sm'
+                            mr='md'
+                        />
+                        <Link
+                            to='/'
+                            style={{ textDecoration: "none" }}
+                            onMouseDown={() => {
+                                close();
+                            }}
+                        >
+                            <Group gap='xs'>
+                                <img
+                                    src='/favicon.ico'
+                                    alt='App Logo'
+                                    style={{
+                                        width: "40px",
+                                        height: "40px",
+                                        marginTop: "-10px",
+                                    }}
+                                />
+                                <Text fw='bold'>DnG</Text>
+                            </Group>
+                        </Link>
+                    </Flex>
+                    <Avatar src={null} alt='nothing yet' />
                 </Flex>
             </AppShell.Header>
 
