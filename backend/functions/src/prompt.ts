@@ -35,7 +35,7 @@ Generate a memorable fantasy location.
 ${userPrompt ? `Theme: ${userPrompt}` : ""}
 Format:
 Name: ...
-Biome: [Forest, Desert, City, Village, Dungeon, Cave, Swamp, Fyord, Mines, Magic Academy, ect.]
+Biome: [Forest, Desert, City, Village, Dungeon, Cave, Swamp, Fyord, Mines, Magic Academy, Room, Tavern, ect.]
 
 [1-3 sentence description.]
 
