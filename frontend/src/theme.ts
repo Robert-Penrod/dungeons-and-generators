@@ -1,4 +1,4 @@
-import { createTheme } from "@mantine/core";
+import { createTheme, type MantineTheme } from "@mantine/core";
 
 export const theme = createTheme({
     primaryColor: "blue",
@@ -19,7 +19,7 @@ export const theme = createTheme({
 
     components: {
         Title: {
-            styles: (theme) => ({
+            styles: (theme: MantineTheme) => ({
                 root: {
                     color: theme.colors.blue[6],
                 },
