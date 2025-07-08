@@ -9,10 +9,12 @@ import "./index.css";
 import "@mantine/core/styles.css";
 import "@mantine/tiptap/styles.css";
 
+import { theme } from "./theme.ts";
+
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
         <BrowserRouter>
-            <MantineProvider forceColorScheme='dark'>
+            <MantineProvider theme={theme}>
                 <App />
             </MantineProvider>
         </BrowserRouter>

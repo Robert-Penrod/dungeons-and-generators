@@ -1,4 +1,4 @@
-import { Card, Divider, Text } from "@mantine/core";
+import { Card, Divider, Text, useMantineTheme } from "@mantine/core";
 import { RichTextEditor } from "@mantine/tiptap";
 import { BubbleMenu, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
@@ -15,6 +15,7 @@ const ContentCard = (props: ContentCardProps) => {
         content,
         editable: true,
     });
+    const theme = useMantineTheme();
 
     // Content update on prop change
     useEffect(() => {
@@ -32,11 +33,12 @@ const ContentCard = (props: ContentCardProps) => {
                     size='lg'
                     fw={1000}
                     spellCheck={false}
+                    style={{ color: theme.colors.blue[6] }}
                 >
                     {title}
                 </Text>
             </Card.Section>
-            <Divider mb={5} mt={3} mx={-20} size='xl' />
+            <Divider mb={5} mt={3} mx={-20} size='md' />
             <Card.Section>
                 <RichTextEditor
                     variant='subtle'

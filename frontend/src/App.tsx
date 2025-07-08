@@ -6,6 +6,7 @@ import {
     Group,
     Stack,
     Text,
+    useMantineTheme,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { FaExclamationCircle } from "react-icons/fa";
@@ -20,6 +21,7 @@ import HomePage from "./pages/HomePage";
 
 function App() {
     const [opened, { toggle, close }] = useDisclosure();
+    const theme = useMantineTheme();
 
     const navbarLinks = [
         { to: "/magic-item", label: "Magic Items", icon: <TbCrystalBall /> },
@@ -39,7 +41,7 @@ function App() {
             }}
             padding='md'
         >
-            <AppShell.Header>
+            <AppShell.Header style={{ backgroundColor: theme.colors.blue[6] }}>
                 <Flex h='100%' p='md' justify='space-between' align='center'>
                     <Flex>
                         <Burger
@@ -48,6 +50,7 @@ function App() {
                             hiddenFrom='sm'
                             size='sm'
                             mr='md'
+                            color='white'
                         />
                         <Link
                             to='/'
@@ -74,7 +77,10 @@ function App() {
                 </Flex>
             </AppShell.Header>
 
-            <AppShell.Navbar p='md'>
+            <AppShell.Navbar
+                p='md'
+                style={{ backgroundColor: theme.colors.blue[6] }}
+            >
                 <Stack gap={0}>
                     {navbarLinks.map((link) => (
                         <Link
@@ -92,7 +98,7 @@ function App() {
                 </Stack>
             </AppShell.Navbar>
 
-            <AppShell.Main>
+            <AppShell.Main style={{ backgroundColor: "#EAE9E7" }}>
                 <Routes>
                     <Route path='/' element={<HomePage />} />
                     {navbarLinks.map((navLinkData) => {
