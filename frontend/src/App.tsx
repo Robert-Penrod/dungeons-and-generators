@@ -9,7 +9,7 @@ import {
     useMantineTheme,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { FaExclamationCircle } from "react-icons/fa";
+import { FaBook, FaExclamationCircle } from "react-icons/fa";
 import { FaMapLocationDot } from "react-icons/fa6";
 import { GiSeaCreature } from "react-icons/gi";
 import { IoPersonCircle } from "react-icons/io5";
@@ -18,12 +18,14 @@ import { Link, Route, Routes } from "react-router";
 import "./App.css";
 import GenerationPage from "./pages/GenerationPage";
 import HomePage from "./pages/HomePage";
+import LorePage from "./pages/LorePage";
 
 function App() {
     const [opened, { toggle, close }] = useDisclosure();
     const theme = useMantineTheme();
 
     const navbarLinks = [
+        { to: "/lore", label: "Lore", icon: <FaBook /> },
         { to: "/magic-item", label: "Magic Items", icon: <TbCrystalBall /> },
         { to: "/character", label: "Characters", icon: <IoPersonCircle /> },
         { to: "/location", label: "Locations", icon: <FaMapLocationDot /> },
@@ -101,6 +103,7 @@ function App() {
             <AppShell.Main style={{ backgroundColor: "#EAE9E7" }}>
                 <Routes>
                     <Route path='/' element={<HomePage />} />
+                    <Route path='/lore' element={<LorePage />} />
                     {navbarLinks.map((navLinkData) => {
                         return (
                             <Route
