@@ -14,7 +14,7 @@ import { FaMapLocationDot } from "react-icons/fa6";
 import { GiSeaCreature } from "react-icons/gi";
 import { IoPersonCircle } from "react-icons/io5";
 import { TbCrystalBall } from "react-icons/tb";
-import { Link, Route, Routes } from "react-router";
+import { NavLink, Route, Routes } from "react-router";
 import "./App.css";
 import GenerationPage from "./pages/GenerationPage";
 import HomePage from "./pages/HomePage";
@@ -54,7 +54,7 @@ function App() {
                             mr='md'
                             color='white'
                         />
-                        <Link
+                        <NavLink
                             to='/'
                             style={{ textDecoration: "none" }}
                             onMouseDown={() => {
@@ -73,7 +73,7 @@ function App() {
                                 />
                                 <Text fw='bold'>DnG</Text>
                             </Group>
-                        </Link>
+                        </NavLink>
                     </Flex>
                     <Avatar src={null} alt='nothing yet' />
                 </Flex>
@@ -85,17 +85,26 @@ function App() {
             >
                 <Stack gap={0}>
                     {navbarLinks.map((link) => (
-                        <Link
+                        <NavLink
                             key={link.to}
                             to={link.to}
                             onMouseDown={() => {
                                 close();
                             }}
+                            style={({ isActive }) => ({
+                                // active background + subtle hover
+                                backgroundColor: isActive
+                                    ? theme.colors.blue[7]
+                                    : "transparent",
+                                color: isActive
+                                    ? theme.white
+                                    : theme.colors.blue[3],
+                            })}
                         >
                             <Group>
                                 {link.icon} <Text>{link.label}</Text>
                             </Group>
-                        </Link>
+                        </NavLink>
                     ))}
                 </Stack>
             </AppShell.Navbar>
