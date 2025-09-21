@@ -17,6 +17,14 @@ export const theme = createTheme({
         ],
     },
 
+    fontSizes: {
+        xs: "0.875rem", // 12px
+        sm: "1rem", // 14px
+        md: "1.125rem", // 16px
+        lg: "1.25rem", // 18px
+        xl: "1.375rem", // 20px
+    },
+
     components: {
         Title: {
             styles: (theme: MantineTheme) => ({
