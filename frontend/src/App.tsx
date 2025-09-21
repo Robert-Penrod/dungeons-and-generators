@@ -94,7 +94,7 @@ function App() {
                             }}
                             style={({ isActive }) => ({
                                 // active background + subtle hover
-                                padding: "2px 12px",
+                                padding: "8px 12px",
                                 backgroundColor: isActive
                                     ? theme.colors.blue[7]
                                     : "transparent",
