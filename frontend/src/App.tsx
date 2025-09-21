@@ -77,8 +77,12 @@ function App() {
             </AppShell.Header>
 
             <AppShell.Navbar
-                p='md'
-                style={{ backgroundColor: theme.colors.blue[6] }}
+                style={{
+                    backgroundColor: theme.colors.blue[6],
+                    border: "none",
+                    borderTop: `${theme.colors.blue[1]} 1px solid`,
+                    marginTop: "-1px",
+                }}
             >
                 <Stack gap={0}>
                     {navbarLinks.map((link) => (
@@ -90,12 +94,14 @@ function App() {
                             }}
                             style={({ isActive }) => ({
                                 // active background + subtle hover
+                                padding: "2px 12px",
                                 backgroundColor: isActive
                                     ? theme.colors.blue[7]
                                     : "transparent",
                                 color: isActive
                                     ? theme.white
                                     : theme.colors.blue[3],
+                                transition: "all 0.2s ease",
                             })}
                         >
                             <Group>
