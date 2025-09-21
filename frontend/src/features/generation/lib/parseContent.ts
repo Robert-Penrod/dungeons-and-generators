@@ -13,7 +13,7 @@ export function parseContent(contentStrings: string[]): ContentData[] {
 
             // Bold Labels, convert newlines to <p>line</p>
             parsed[2] = parsed[2]
-                .replace(/(\w+):/g, "<strong>$1:</strong>")
+                .replace(/(^|\n)(\w+):/g, "$1<strong>$2:</strong>")
                 .split("\n")
                 .map((line) => `<p>${line}</p>`)
                 .join("");

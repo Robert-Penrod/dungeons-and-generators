@@ -25,7 +25,6 @@ const GenerationPage = (props: GenerationPageProps) => {
     );
 
     useEffect(() => {
-        console.log("Hello??");
         setPrompt("");
     }, [props.generatorType]);
 
