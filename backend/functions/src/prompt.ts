@@ -12,12 +12,12 @@ Cost: [Gold piece value appropriate for its rarity]
 `,
 
     character: (userPrompt?: string) => `
-Generate a colorful NPC for D&D 5e.
-${userPrompt ? `Focus: ${userPrompt}` : ""}
+Generate a colorful NPC for D&D 5e. Make the types of character, race, occupation varried.
+${userPrompt ? `User prompt: ${userPrompt}` : ""}
 Format:
 Name: ...
 Race: ... 
-Occupation: ...
+Occupation: [Succinct label, Wizard, Ferryman, Witch, Engineer, Druid, Bishop, Ranger, Merchant, Cheff, Rogue, Captain Of The Gaurd, Fixer, Warlock, ect.]
 
 [1 sentence description.]
 
@@ -31,8 +31,8 @@ Bond: ...
 `,
 
     location: (userPrompt?: string) => `
-Generate a memorable fantasy location.
-${userPrompt ? `Theme: ${userPrompt}` : ""}
+Generate a memorable fantasy location. Make the types of location varried.
+${userPrompt ? `User prompt: ${userPrompt}` : ""}
 Format:
 Name: ...
 Biome: [Forest, Desert, City, Village, Dungeon, Cave, Swamp, Fyord, Mines, Magic Academy, Room, Tavern, ect.]
