@@ -42,7 +42,7 @@ const GenerationPage = (props: GenerationPageProps) => {
                     placeholder='(prompt)'
                 />
                 <Button
-                    onClick={() => generate(4, prompt)}
+                    onClick={() => generate(6, prompt)}
                     leftSection={<RiAiGenerate />}
                     disabled={isLoading}
                 >

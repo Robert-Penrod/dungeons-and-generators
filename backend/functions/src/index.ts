@@ -222,7 +222,7 @@ Cost: [Gold piece value appropriate for its rarity]
 
 // Generation Schemas/Types
 const generateItemSchema = z.object({
-    count: z.number().min(1).max(4).default(1),
+    count: z.number().min(1).max(12).default(1),
     userPrompt: z.string().optional(),
 });
 type GenerateItemRequest = z.infer<typeof generateItemSchema>;
@@ -256,11 +256,13 @@ app.post(
 
         try {
             // Build prompt text
-            const basePrompt = makePrompt(userPrompt);
+            //const basePrompt = makePrompt(userPrompt);
 
             // Run N completions in parallel
             const items = await Promise.all(
-                Array.from({ length: count }, () => chatCompletion(basePrompt))
+                Array.from({ length: count }, () =>
+                    chatCompletion(makePrompt(userPrompt))
+                )
             );
 
             // Send Response
