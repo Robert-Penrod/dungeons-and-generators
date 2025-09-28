@@ -133,6 +133,12 @@ Name: ...
 Biome: [City, Coast, Town, Desert, Forest, Mountains, Plains, Dungeon]
 
 [short, succinct description in a few words.]
+
+- [Interesting detail in a few short words.]
+
+- [Interesting detail in a few short words.]
+
+- [Interesting detail in a few short words.]
 `,
 
     encounter: (userPrompt?: string) => `
