@@ -132,7 +132,7 @@ Format:
 Name: ...
 Biome: [City, Coast, Town, Desert, Forest, Mountains, Plains, Dungeon]
 
-[description in a few words.]
+[short, succinct description in a few words.]
 `,
 
     encounter: (userPrompt?: string) => `
