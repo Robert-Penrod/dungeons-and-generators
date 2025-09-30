@@ -11,8 +11,7 @@ export async function chatCompletion(
 ): Promise<string> {
     const completion = await openai.chat.completions.create({
         messages: [{ role: "system", content: prompt }],
-        model: "o4-mini-2025-04-16",
-        temperature: temp,
+        model: "gpt-5-mini-2025-08-07",
     });
 
     return completion.choices[0].message.content || "";

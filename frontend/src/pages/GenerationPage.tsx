@@ -84,7 +84,7 @@ const GenerationPage = (props: GenerationPageProps) => {
                     placeholder='(prompt)'
                 />
                 <Button
-                    onClick={() => generate(6, prompt, temp)}
+                    onClick={() => generate(8, prompt, temp)}
                     leftSection={<RiAiGenerate />}
                     disabled={isLoading}
                 >
@@ -103,7 +103,7 @@ const GenerationPage = (props: GenerationPageProps) => {
             </Stack>
             {isLoading ? (
                 <Center>
-                    <Loader />
+                    <Loader type='dots' />
                 </Center>
             ) : (
                 <SimpleGrid

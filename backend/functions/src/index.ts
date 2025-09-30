@@ -1,17 +1,13 @@
 // See a full list of supported triggers at https://firebase.google.com/docs/functions
 // https://firebase.google.com/docs/functions/typescript
 
-import { Redis } from "@upstash/redis";
 import cors from "cors";
 import express, { Request, Response } from "express";
-import rateLimit from "express-rate-limit";
 import * as logger from "firebase-functions/logger";
 import * as functions from "firebase-functions/v2/https";
 import { z } from "zod";
 import { GeneratorKind, PROMPTS } from "./prompt";
-import { createGlobalRateLimiter } from "./services/globalRateLimit";
 import { chatCompletion } from "./services/openai";
-import { UpstashRateLimitStore } from "./services/UpstashRateLimitStore";
 
 const app = express();
 
@@ -21,6 +17,7 @@ app.use(express.json());
 app.use(cors({ origin: true }));
 
 // Rate limiting
+/*
 const redis = new Redis({
     url: process.env.UPSTASH_REDIS_REST_URL,
     token: process.env.UPSTRASH_REDIS_REST_TOKEN,
@@ -36,10 +33,10 @@ const limiter = rateLimit({
         windowMs: rateLimitWindowMs,
     }),
 });
-app.use(limiter);
-
+*/
+//app.use(limiter);
 // Global rate limiter
-app.use(createGlobalRateLimiter(redis));
+//app.use(createGlobalRateLimiter(redis));
 
 // Log requests
 app.use((req, res, next) => {
@@ -254,6 +251,7 @@ app.post(
         }
         const { count, userPrompt } = parsed.data;
 
+        console.log("running chat completion??");
         try {
             // Build prompt text
             //const basePrompt = makePrompt(userPrompt);
