@@ -22,10 +22,10 @@ export function useGenerateContent(generatorType: string) {
 
             try {
                 const res = await fetch(
-                    // `https://api.dng.quest/${makeEndpoint(generatorType)}`, // Prod Backend
-                    `http://localhost:5001/dng-app-5f39e/us-central1/api/${makeEndpoint(
-                        generatorType
-                    )}`, // Local Testing
+                    `https://api.dng.quest/${makeEndpoint(generatorType)}`, // Prod Backend
+                    // `http://localhost:5001/dng-app-5f39e/us-central1/api/${makeEndpoint(
+                    //     generatorType
+                    // )}`, // Local Testing
                     {
                         method: "POST",
                         headers: {
