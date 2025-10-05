@@ -97,7 +97,7 @@ Rarity: [common, uncommon, rare, very rare, or legendary]
 Attunement: [Yes/No]
 Cost: [Gold piece value appropriate for its rarity]
 (if weapons add "Damage:")
-
+\n
 [Item effects and properties in 1-3 sentences.]
 `;
     },

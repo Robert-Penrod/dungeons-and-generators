@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 
 interface WordLoaderProps {
     messages: string[];
-    interval?: number; // in milliseconds
+    interval?: number;
 }
 
 export const WordLoader: React.FC<WordLoaderProps> = ({
@@ -13,31 +13,40 @@ export const WordLoader: React.FC<WordLoaderProps> = ({
     const [shuffledMessages, setShuffledMessages] = useState<string[]>([]);
     const [index, setIndex] = useState(0);
     const [visible, setVisible] = useState(true);
+    const [dotIndex, setDotIndex] = useState(0);
     const theme = useMantineTheme();
 
-    // Shuffle messages once
+    const dotFrames = ["", ".", "..", "..."];
+
+    // Shuffle once
     useEffect(() => {
         const shuffled = [...messages].sort(() => Math.random() - 0.5);
         setShuffledMessages(shuffled);
     }, [messages]);
 
-    // Animation + message rotation
+    // Rotate messages
     useEffect(() => {
         if (shuffledMessages.length <= 1) return;
 
         const timer = setInterval(() => {
-            // Fade out
             setVisible(false);
-
-            // Change message after fade-out duration (300ms)
             setTimeout(() => {
                 setIndex((prev) => (prev + 1) % shuffledMessages.length);
-                setVisible(true); // Fade back in
+                setDotIndex(0); // ✅ reset dots when message changes
+                setVisible(true);
             }, 300);
         }, interval);
 
         return () => clearInterval(timer);
     }, [shuffledMessages, interval]);
+
+    // Animate dots
+    useEffect(() => {
+        const dotTimer = setInterval(() => {
+            setDotIndex((prev) => (prev + 1) % dotFrames.length);
+        }, 1600);
+        return () => clearInterval(dotTimer);
+    }, []);
 
     return (
         <Center style={{ height: "100%" }}>
@@ -48,15 +57,37 @@ export const WordLoader: React.FC<WordLoaderProps> = ({
                 timingFunction='ease'
             >
                 {(styles) => (
-                    <Text
-                        c={theme.colors.blue[6]}
-                        style={styles}
-                        size='lg'
-                        ta='center'
-                        w={500}
+                    <div
+                        style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            width: "100%",
+                        }}
                     >
-                        {shuffledMessages[index] || ""}
-                    </Text>
+                        <Text
+                            c={theme.colors.blue[6]}
+                            size='lg'
+                            style={{
+                                ...styles,
+                                whiteSpace: "nowrap",
+                                marginLeft: "1.5em",
+                            }}
+                            ta='left'
+                        >
+                            {shuffledMessages[index]}
+                            <span
+                                style={{
+                                    display: "inline-block",
+                                    minWidth: "1.5em",
+                                }}
+                            >
+                                {dotFrames[dotIndex]}
+                                <span style={{ visibility: "hidden" }}>
+                                    ...
+                                </span>
+                            </span>
+                        </Text>
+                    </div>
                 )}
             </Transition>
         </Center>

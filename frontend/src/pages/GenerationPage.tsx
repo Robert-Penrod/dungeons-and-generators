@@ -12,6 +12,7 @@ import {
 import { useEffect, useState } from "react";
 import { RiAiGenerate, RiErrorWarningLine } from "react-icons/ri";
 import ContentCard from "../components/ContentCard";
+import GenerativeIconLoader from "../components/GenerativeIconLoader";
 import { WordLoader } from "../components/WordLoader";
 import { useGenerateContent } from "../features/generation/hooks/useGenerateContent";
 
@@ -79,7 +80,7 @@ const GenerationPage = (props: GenerationPageProps) => {
                     placeholder='(prompt)'
                 />
                 <Button
-                    onClick={() => generate(8, prompt)}
+                    onClick={() => generate(6, prompt)}
                     leftSection={<RiAiGenerate />}
                     disabled={isLoading}
                 >
@@ -99,35 +100,91 @@ const GenerationPage = (props: GenerationPageProps) => {
 
             {isLoading ? (
                 <Stack>
-                    <Center>
-                        <Loader type='dots' />
-                    </Center>
+                    {/* <Center>
+                        <Loader size='xl' type='dots' />
+                    </Center> */}
+                    <GenerativeIconLoader />
                     <WordLoader
                         messages={[
+                            "Rolling",
+                            "Thinking",
                             "Generating",
                             "Writing Lore",
                             "Pondering Orb",
                             "Brewing Potion of Ideas",
                             "Simulating Possibilities",
                             "Fetching Lost Knowledge",
-                            "Rolling",
-                            "Thinking",
-                            "Musing",
                             "Consulting the Lorekeeper",
                             "Dusting off the Archives",
                             "Channeling Arcane Energy",
                             "Scouting Alternate Timelines",
                             "Interpreting Prophecies",
-                            "Gazing into the Abyss",
                             "Conjuring Brainstorm",
                             "Forging Lorebound Artifacts",
                             "Consulting the Oracle",
                             "Scouring the Archives",
+                            "Rerolling Fate Tables",
+                            "Invoking the Muses",
+                            "Compiling Lore Fragments",
+                            "Stirring the Lore Cauldron",
+                            "Polishing plot armor",
+                            "Invoking true names",
+                            "Bargaining with goblins",
+                            "Finding an inn for the night",
+                            "Finding an inn for the night",
+                            "Slaying a gelatinous cube",
+                            "Checking the quest board",
+                            "Studying a suspicious map",
+                            "Haggling with the blacksmith",
+                            "Following footprints",
+                            "Prodding a suspicious chest",
+                            "Testing for mimics",
+                            "Tracking a wounded wyvern",
+                            "Scouting the next valley",
+                            "Mending a torn cloak",
+                            "Consulting the tavern bard",
+                            "Asking locals for rumors",
+                            "Checking for traps",
+                            "Bribing the gate guard",
+                            "Crossing a rickety bridge",
+                            "Foraging for healing herbs",
+                            "Refilling the waterskins",
+                            "Roasting something edible",
+                            "Listening at the door",
+                            "Kicking open the door",
+                            "Checking for wandering monsters",
+                            "Looting responsibly",
+                            "Rolling for random encounter",
+                            "Negotiating with bandits",
+                            "Surviving an ambush",
+                            "Dodging falling rocks",
+                            "Sneaking past the ogre",
+                            "Translating a crude map",
+                            "Hiring a dubious guide",
+                            "Examining ominous statues",
+                            "Tossing a copper for luck",
+                            "Feeding the campfire",
+                            "Consulting the star chart",
+                            "Scraping ooze off boots",
+                            "Skirting a sleeping dragon",
+                            "Stealing keys from a troll",
+                            "Bargaining with goblins",
+                            "Smelling something burning",
+                            "Preparing a heroic speech",
+                            "Practicing a battle cry",
+                            "Counting experience points",
+                            "Naming the new sword",
+                            "Repairing torn spellbook",
+                            "Stashing loot in saddlebags",
+                            "Checking the quest log",
+                            "Petting the tavern cat",
+                            "Paying off old debts",
+                            "Sending a raven home",
                         ]}
                         interval={5000}
                     />
                     <Center>
-                        <Loader type='dots' />
+                        <Loader size='xl' type='dots' />
                     </Center>
                 </Stack>
             ) : (
