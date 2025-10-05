@@ -27,7 +27,13 @@ const ContentCard = (props: ContentCardProps) => {
     }, [content, editor]);
 
     return (
-        <Card p='xl'>
+        <Card
+            p='xl'
+            style={{ paddingTop: "1.25em" }}
+            shadow='lg'
+            radius='md'
+            withBorder
+        >
             <Card.Section>
                 <Group>
                     <DynamicIcon
@@ -47,7 +53,13 @@ const ContentCard = (props: ContentCardProps) => {
                     </Text>
                 </Group>
             </Card.Section>
-            <Divider mb={5} mt={3} mx={-20} size='md' />
+            <Divider
+                mb={5}
+                mt={3}
+                mx={-20}
+                size='md'
+                color={theme.colors.blue[2]}
+            />
             <Card.Section>
                 <RichTextEditor
                     variant='subtle'

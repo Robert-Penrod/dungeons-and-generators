@@ -180,6 +180,18 @@ const GenerationPage = (props: GenerationPageProps) => {
                             "Petting the tavern cat",
                             "Paying off old debts",
                             "Sending a raven home",
+                            "Spotting smoke on the horizon",
+                            "Circling a ruined tower",
+                            "Eyeing fresh claw marks",
+                            "Scanning the tree line",
+                            "Turning a cursed key",
+                            "Winding a pocket watch",
+                            "Tapping for hollow stone",
+                            "Bracing a collapsing beam",
+                            "Squeezing through a breach",
+                            "Leaping a chasm in faith",
+                            "Testing a rope bridge",
+                            "Spotting a glimmer in mud",
                         ]}
                         interval={5000}
                     />
