@@ -15,10 +15,10 @@ export const ElementLoader: React.FC<ElementLoaderProps> = ({
     const [visible, setVisible] = useState(true);
 
     // Smooth wiggle animation style
-    const smoothWiggleAnimation: React.CSSProperties = {
-        animation: "smooth-wiggle 10s ease-in-out infinite", // slow & smooth
-        display: "inline-block", // ensure transform origin works
-    };
+    // const smoothWiggleAnimation: React.CSSProperties = {
+    //     animation: "smooth-wiggle 10s ease-in-out infinite", // slow & smooth
+    //     display: "inline-block", // ensure transform origin works
+    // };
 
     // Inject keyframes into the document head (once)
     const injectWiggleKeyframes = () => {
