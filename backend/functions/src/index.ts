@@ -256,12 +256,20 @@ app.post(
             // Build prompt text
             //const basePrompt = makePrompt(userPrompt);
 
+            /* Old - each card had individual calls
             // Run N completions in parallel
             const items = await Promise.all(
                 Array.from({ length: count }, () =>
                     chatCompletion(makePrompt(userPrompt))
                 )
             );
+            */
+
+            // Chat completion
+            const response = await chatCompletion(
+                makePrompt(userPrompt, count)
+            );
+            const items: string[] = [response];
 
             // Send Response
             return res.json({ success: true, data: { items } });

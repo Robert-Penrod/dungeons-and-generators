@@ -12,6 +12,7 @@ import {
 import { useEffect, useState } from "react";
 import { RiAiGenerate, RiErrorWarningLine } from "react-icons/ri";
 import ContentCard from "../components/ContentCard";
+import { WordLoader } from "../components/WordLoader";
 import { useGenerateContent } from "../features/generation/hooks/useGenerateContent";
 
 interface GenerationPageProps {
@@ -95,10 +96,40 @@ const GenerationPage = (props: GenerationPageProps) => {
                     </Alert>
                 )}
             </Stack>
+
             {isLoading ? (
-                <Center>
-                    <Loader type='dots' />
-                </Center>
+                <Stack>
+                    <Center>
+                        <Loader type='dots' />
+                    </Center>
+                    <WordLoader
+                        messages={[
+                            "Generating",
+                            "Writing Lore",
+                            "Pondering Orb",
+                            "Brewing Potion of Ideas",
+                            "Simulating Possibilities",
+                            "Fetching Lost Knowledge",
+                            "Rolling",
+                            "Thinking",
+                            "Musing",
+                            "Consulting the Lorekeeper",
+                            "Dusting off the Archives",
+                            "Channeling Arcane Energy",
+                            "Scouting Alternate Timelines",
+                            "Interpreting Prophecies",
+                            "Gazing into the Abyss",
+                            "Conjuring Brainstorm",
+                            "Forging Lorebound Artifacts",
+                            "Consulting the Oracle",
+                            "Scouring the Archives",
+                        ]}
+                        interval={5000}
+                    />
+                    <Center>
+                        <Loader type='dots' />
+                    </Center>
+                </Stack>
             ) : (
                 <SimpleGrid
                     cols={{ base: 1, xs: 1, sm: 1, md: 2, lg: 3, xl: 3 }}

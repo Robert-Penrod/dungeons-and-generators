@@ -87,9 +87,9 @@ The kingdom used to be a thriving center of trade. The times changed, bringing h
 `;
 
 export const PROMPTS = {
-    "magic-item": (userPrompt?: string) => {
+    "magic-item": (userPrompt?: string, count: number = 1) => {
         return `
-Generate a D&D 5e magic item.
+Generate ${count} D&D 5e magic item${count > 1 ? "s" : ""}.
 ${userPrompt ? `User prompt: ${userPrompt}` : ""}
 Format:
 Name: [Item Name]
@@ -102,11 +102,11 @@ Cost: [Gold piece value appropriate for its rarity]
 `;
     },
 
-    character: (userPrompt?: string) => `
+    character: (userPrompt?: string, count: number = 1) => `
 Here are some character examples
 ${characterExamples}
 
-Generate a colorful NPC for D&D 5e. Make their occupations interesting and varried.
+Generate ${count} colorful NPC${count > 1 ? "s" : ""} for D&D 5e.
 ${userPrompt ? `User prompt: ${userPrompt}` : ""}
 Format:
 Name: ...
@@ -122,11 +122,11 @@ Bond: ...
 "[quote from the character]"
 `,
 
-    location: (userPrompt?: string) => `
+    location: (userPrompt?: string, count: number = 1) => `
 Here are some location examples
 ${locationExamples}
 
-Generate a memorable fantasy location.
+Generate ${count} memorable fantasy location${count > 1 ? "s" : ""}.
 ${userPrompt ? `User prompt: ${userPrompt}` : ""}
 Format:
 Name: ...
@@ -141,8 +141,8 @@ Biome: [City, Coast, Town, Desert, Forest, Mountains, Plains, Dungeon]
 - [Interesting detail in a few short words.]
 `,
 
-    encounter: (userPrompt?: string) => `
-Generate a D&D 5e encounter:
+    encounter: (userPrompt?: string, count: number = 1) => `
+Generate ${count} D&D 5e encounter${count > 1 ? "s" : ""}:
 ${userPrompt ? `User prompt: ${userPrompt}` : ""}
 Format:
 Name: ...
