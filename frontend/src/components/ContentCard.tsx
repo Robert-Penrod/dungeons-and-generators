@@ -1,15 +1,17 @@
-import { Card, Divider, Text, useMantineTheme } from "@mantine/core";
+import { Card, Divider, Group, Text, useMantineTheme } from "@mantine/core";
 import { RichTextEditor } from "@mantine/tiptap";
 import { BubbleMenu, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { useEffect } from "react";
+import { DynamicIcon } from "./DynamicIcon";
 
 interface ContentCardProps {
     title: string;
     content: string;
+    iconString: string;
 }
 const ContentCard = (props: ContentCardProps) => {
-    const { title, content } = props;
+    const { title, content, iconString } = props;
     const editor = useEditor({
         extensions: [StarterKit],
         content,
@@ -27,16 +29,23 @@ const ContentCard = (props: ContentCardProps) => {
     return (
         <Card p='xl'>
             <Card.Section>
-                <Text
-                    contentEditable
-                    suppressContentEditableWarning
-                    size='lg'
-                    fw={1000}
-                    spellCheck={false}
-                    style={{ color: theme.colors.blue[6] }}
-                >
-                    {title}
-                </Text>
+                <Group>
+                    <DynamicIcon
+                        name={iconString}
+                        size={24}
+                        color={theme.colors.blue[6]}
+                    />
+                    <Text
+                        contentEditable
+                        suppressContentEditableWarning
+                        size='lg'
+                        fw={1000}
+                        spellCheck={false}
+                        style={{ color: theme.colors.blue[6] }}
+                    >
+                        {title}
+                    </Text>
+                </Group>
             </Card.Section>
             <Divider mb={5} mt={3} mx={-20} size='md' />
             <Card.Section>

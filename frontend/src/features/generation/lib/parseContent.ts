@@ -1,19 +1,17 @@
-export type ContentData = { name: string; description: string };
+export type ContentData = {
+    name: string;
+    description: string;
+    iconString: string; // e.g., "FaBeer" or "GiTorch"
+};
 
 export function parseContent(contentStrings: string[]): ContentData[] {
     const results: ContentData[] = [];
 
-    console.log(contentStrings);
-
     for (const raw of contentStrings) {
-        // Normalize line endings to \n to simplify the regex.
+        // Normalize line endings to \n
         const contentString = raw.replace(/\r\n?/g, "\n");
 
-        // Block regex:
-        // - (?:^|\n)\s*Name:   → allow leading spaces & match at start or after a newline
-        // - (.+?)              → name = rest of that line (non-greedy)
-        // - (?:\n([\s\S]*?))?  → optional body = lines until next Name: (non-greedy)
-        // - (?=(?:\n)\s*Name:|$) → stop before next Name: or end of string
+        // Capture blocks that start with "Name:" and run until the next "Name:" or end
         const blockRe =
             /(?:^|\n)\s*Name:\s*(.+?)(?:\n([\s\S]*?))?(?=(?:\n)\s*Name:|$)/g;
 
@@ -28,6 +26,22 @@ export function parseContent(contentStrings: string[]): ContentData[] {
 
             // Body literally "null" → treat as empty
             if (/^null$/i.test(body)) body = "";
+
+            // --- NEW: Extract "ReactIcon: <label>" line (case-insensitive) ---
+            //   - capture the icon string (second group)
+            //   - remove the entire line from body so it doesn't appear in description
+            const reactIconRe = /(^|\n)\s*ReactIcon:\s*([^\n]+)\s*(?:\n|$)/i;
+            let iconString = "";
+            const iconMatch = reactIconRe.exec(body);
+            if (iconMatch) {
+                iconString = (iconMatch[2] ?? "").trim();
+                // preserve preceding newline (iconMatch[1]) to avoid smashing lines together
+                body = body.replace(
+                    reactIconRe,
+                    iconMatch[1] ? iconMatch[1] : ""
+                );
+                body = body.trim();
+            }
 
             // Bold labels that start a line: "Label:" or "Long Label:"
             if (body) {
@@ -44,7 +58,7 @@ export function parseContent(contentStrings: string[]): ContentData[] {
                       .join("")
                 : "";
 
-            results.push({ name, description });
+            results.push({ name, description, iconString });
         }
 
         if (!foundAny) {

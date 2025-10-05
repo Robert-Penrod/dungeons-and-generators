@@ -197,6 +197,7 @@ const GenerationPage = (props: GenerationPageProps) => {
                                 key={index}
                                 title={item.name}
                                 content={item.description}
+                                iconString={item.iconString}
                             />
                         );
                     })}
