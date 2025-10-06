@@ -9,7 +9,8 @@ import {
     useMantineTheme,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { FaMapLocationDot } from "react-icons/fa6";
+import { useState } from "react";
+import { FaCoins, FaMapLocationDot } from "react-icons/fa6";
 import { IoPersonCircle } from "react-icons/io5";
 import { TbCrystalBall } from "react-icons/tb";
 import { NavLink, Route, Routes } from "react-router";
@@ -20,6 +21,8 @@ import HomePage from "./pages/HomePage";
 function App() {
     const [opened, { toggle, close }] = useDisclosure();
     const theme = useMantineTheme();
+
+    const [coinCount, setCoinCount] = useState<number>(200);
 
     const navbarLinks = [
         // { to: "/lore", label: "Lore", icon: <FaBook /> },
@@ -73,12 +76,12 @@ function App() {
                         </NavLink>
                     </Flex>
                     <Group>
-                        {/* <Group gap={5}>
-                            <Text c='gold' fw='bold'>
-                                100
+                        <Group gap={7}>
+                            <Text size='lg' c='gold' fw='bold'>
+                                {coinCount}
                             </Text>
                             <FaCoins color='gold' size={24} />
-                        </Group> */}
+                        </Group>
                         <Avatar src={null} alt='nothing yet' />
                     </Group>
                 </Flex>
@@ -131,6 +134,9 @@ function App() {
                                 element={
                                     <GenerationPage
                                         generatorType={navLinkData.to.slice(1)}
+                                        onGenerate={() => {
+                                            setCoinCount(coinCount - 1);
+                                        }}
                                     />
                                 }
                             />

@@ -1,28 +1,31 @@
 import {
+    ActionIcon,
     Alert,
     Button,
     Divider,
+    Group,
     SimpleGrid,
     Stack,
+    Text,
     Textarea,
     Title,
 } from "@mantine/core";
 import { useEffect, useState } from "react";
-import { RiAiGenerate, RiErrorWarningLine } from "react-icons/ri";
+import { FaCoins, FaStop } from "react-icons/fa6";
+import { RiErrorWarningLine } from "react-icons/ri";
 import ContentCard from "../components/ContentCard";
 import GenerativeLoader from "../components/loaders/GenerativeLoader";
 import { useGenerateContent } from "../features/generation/hooks/useGenerateContent";
 
 interface GenerationPageProps {
     generatorType: string;
+    onGenerate?: () => void;
 }
 
 const GenerationPage = (props: GenerationPageProps) => {
     const [prompt, setPrompt] = useState<string>("");
-    const { data, isLoading, error, title, generate } = useGenerateContent(
-        props.generatorType
-    );
-    //const [temp, setTemp] = useState<number>(1);
+    const { data, isLoading, error, title, generate, cancel, canCancel } =
+        useGenerateContent(props.generatorType);
 
     useEffect(() => {
         setPrompt("");
@@ -76,13 +79,45 @@ const GenerationPage = (props: GenerationPageProps) => {
                     w='90%'
                     placeholder='(prompt)'
                 />
-                <Button
-                    onClick={() => generate(8, prompt)}
-                    leftSection={<RiAiGenerate />}
-                    disabled={isLoading}
-                >
-                    Generate
-                </Button>
+                <Group>
+                    <Button
+                        onClick={() => {
+                            generate(8, prompt);
+                            if (props.onGenerate) props.onGenerate();
+                        }}
+                        leftSection={
+                            <Group gap={7}>
+                                <Text
+                                    c={isLoading ? undefined : "gold"}
+                                    size='lg'
+                                    fw='bold'
+                                >
+                                    -
+                                </Text>
+                                <FaCoins
+                                    color={isLoading ? undefined : "gold"}
+                                    size={24}
+                                />
+                            </Group>
+                        }
+                        disabled={isLoading}
+                    >
+                        Generate
+                    </Button>
+                    {isLoading && (
+                        <ActionIcon
+                            variant='filled'
+                            color='red'
+                            size='lg'
+                            onClick={cancel}
+                            disabled={!canCancel}
+                            aria-label='Stop'
+                            title='Stop'
+                        >
+                            <FaStop size={16} />
+                        </ActionIcon>
+                    )}
+                </Group>
                 <Divider w='100%' />
                 {error && (
                     <Alert
