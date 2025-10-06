@@ -1,0 +1,107 @@
+import { Center, Loader, Stack } from "@mantine/core";
+import IconStoryLoader from "./IconStoryLoader";
+import { WordLoader } from "./WordLoader";
+
+const GenerativeLoader = () => {
+    return (
+        <Stack>
+            <IconStoryLoader />
+            <WordLoader
+                messages={[
+                    "Rolling",
+                    "Thinking",
+                    "Generating",
+                    "Writing Lore",
+                    "Pondering Orb",
+                    "Brewing Potion of Ideas",
+                    "Simulating Possibilities",
+                    "Fetching Lost Knowledge",
+                    "Consulting the Lorekeeper",
+                    "Dusting off the Archives",
+                    "Channeling Arcane Energy",
+                    "Scouting Alternate Timelines",
+                    "Interpreting Prophecies",
+                    "Conjuring Brainstorm",
+                    "Forging Lorebound Artifacts",
+                    "Consulting the Oracle",
+                    "Scouring the Archives",
+                    "Rerolling Fate Tables",
+                    "Invoking the Muses",
+                    "Compiling Lore Fragments",
+                    "Stirring the Lore Cauldron",
+                    "Polishing plot armor",
+                    "Invoking true names",
+                    "Bargaining with goblins",
+                    "Finding an inn for the night",
+                    "Finding an inn for the night",
+                    "Slaying a gelatinous cube",
+                    "Checking the quest board",
+                    "Studying a suspicious map",
+                    "Haggling with the blacksmith",
+                    "Following footprints",
+                    "Prodding a suspicious chest",
+                    "Testing for mimics",
+                    "Tracking a wounded wyvern",
+                    "Scouting the next valley",
+                    "Mending a torn cloak",
+                    "Consulting the tavern bard",
+                    "Asking locals for rumors",
+                    "Checking for traps",
+                    "Bribing the gate guard",
+                    "Crossing a rickety bridge",
+                    "Foraging for healing herbs",
+                    "Refilling the waterskins",
+                    "Roasting something edible",
+                    "Listening at the door",
+                    "Kicking open the door",
+                    "Checking for wandering monsters",
+                    "Looting responsibly",
+                    "Rolling for random encounter",
+                    "Negotiating with bandits",
+                    "Surviving an ambush",
+                    "Dodging falling rocks",
+                    "Sneaking past the ogre",
+                    "Translating a crude map",
+                    "Hiring a dubious guide",
+                    "Examining ominous statues",
+                    "Tossing a copper for luck",
+                    "Feeding the campfire",
+                    "Consulting the star chart",
+                    "Scraping ooze off boots",
+                    "Skirting a sleeping dragon",
+                    "Stealing keys from a troll",
+                    "Bargaining with goblins",
+                    "Smelling something burning",
+                    "Preparing a heroic speech",
+                    "Practicing a battle cry",
+                    "Counting experience points",
+                    "Naming the new sword",
+                    "Repairing torn spellbook",
+                    "Stashing loot in saddlebags",
+                    "Checking the quest log",
+                    "Petting the tavern cat",
+                    "Paying off old debts",
+                    "Sending a raven home",
+                    "Spotting smoke on the horizon",
+                    "Circling a ruined tower",
+                    "Eyeing fresh claw marks",
+                    "Scanning the tree line",
+                    "Turning a cursed key",
+                    "Winding a pocket watch",
+                    "Tapping for hollow stone",
+                    "Bracing a collapsing beam",
+                    "Squeezing through a breach",
+                    "Leaping a chasm in faith",
+                    "Testing a rope bridge",
+                    "Spotting a glimmer in mud",
+                ]}
+                interval={5000}
+            />
+            <Center>
+                <Loader size='xl' type='dots' />
+            </Center>
+        </Stack>
+    );
+};
+
+export default GenerativeLoader;

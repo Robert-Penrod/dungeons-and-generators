@@ -72,7 +72,15 @@ function App() {
                             </Group>
                         </NavLink>
                     </Flex>
-                    <Avatar src={null} alt='nothing yet' />
+                    <Group>
+                        {/* <Group gap={5}>
+                            <Text c='gold' fw='bold'>
+                                100
+                            </Text>
+                            <FaCoins color='gold' size={24} />
+                        </Group> */}
+                        <Avatar src={null} alt='nothing yet' />
+                    </Group>
                 </Flex>
             </AppShell.Header>
 

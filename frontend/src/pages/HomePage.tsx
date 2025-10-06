@@ -1,13 +1,12 @@
 import {
     Center,
     Container,
-    Flex,
     Stack,
     Text,
     Title,
     useMantineTheme,
 } from "@mantine/core";
-import GenerativeIconLoader from "../components/GenerativeIconLoader";
+import IconStoryLoader from "../components/loaders/IconStoryLoader";
 
 const HomePage = () => {
     const theme = useMantineTheme();
@@ -27,11 +26,7 @@ const HomePage = () => {
                         📖 Less prep, more play ⚔️
                     </Text>
 
-                    <Flex w='90%' maw='300px' justify='space-between'>
-                        <GenerativeIconLoader />
-                        <GenerativeIconLoader />
-                        <GenerativeIconLoader />
-                    </Flex>
+                    <IconStoryLoader />
                     <Text size='md' ta='center' c={theme.colors.gray[7]}>
                         DnG helps game masters generate content tailored for
                         their adventures. Whether you’re building a new campaign
