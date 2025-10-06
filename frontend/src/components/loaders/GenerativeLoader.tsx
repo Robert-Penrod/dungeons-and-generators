@@ -94,6 +94,13 @@ const GenerativeLoader = () => {
                     "Leaping a chasm in faith",
                     "Testing a rope bridge",
                     "Spotting a glimmer in mud",
+                    "Consulting a cryptic codex",
+                    "Consulting tea leaves",
+                    "Marking a safe campsite",
+                    "Testing various keys in a suspicious lock",
+                    "Looting ruins",
+                    "Flipping a coin",
+                    "Asking the barkeep about rumors",
                 ]}
                 interval={5000}
             />
