@@ -22,12 +22,13 @@ import { useGenerateContent } from "../features/generation/hooks/useGenerateCont
 interface GenerationPageProps {
     generatorType: string;
     icon?: ReactNode;
+    label: string;
     onGenerate?: () => void;
 }
 
 const GenerationPage = (props: GenerationPageProps) => {
     const [prompt, setPrompt] = useState<string>("");
-    const { data, isLoading, error, title, generate, cancel, canCancel } =
+    const { data, isLoading, error, generate, cancel, canCancel } =
         useGenerateContent(props.generatorType);
 
     const theme = useMantineTheme();
@@ -82,7 +83,7 @@ const GenerationPage = (props: GenerationPageProps) => {
                         >
                             {props.icon}
                         </Box>{" "}
-                        {title}s{" "}
+                        {props.label}
                     </Title>
                 </Group>
                 <Textarea

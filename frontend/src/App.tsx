@@ -196,6 +196,7 @@ function App() {
                                     path={navLinkData.to}
                                     element={
                                         <GenerationPage
+                                            label={navLinkData.label}
                                             icon={navLinkData.icon}
                                             generatorType={navLinkData.to.slice(
                                                 1

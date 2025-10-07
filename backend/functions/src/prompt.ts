@@ -1,3 +1,5 @@
+const lightModelName = "gpt-4.1-nano-2025-04-14";
+
 let characterExamples = `
 Name: Marcus Shadowmourne
 Race: Half-Orc
@@ -110,7 +112,7 @@ Format:
 
 ${lootFormat}
         `.trim(),
-            model: "gpt-4.1-nano-2025-04-14",
+            model: lightModelName,
         };
     },
 
