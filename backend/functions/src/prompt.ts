@@ -86,9 +86,37 @@ Name: Grayrock
 The kingdom used to be a thriving center of trade. The times changed, bringing hardship beyond belief, and yet the people clung to some sort of life here. Few ships, and fewer good tidings, come to its port nowadays.
 `;
 
+export interface PromptConfig {
+    prompt: string;
+    model?: string;
+}
+
 export const PROMPTS = {
-    "magic-item": (userPrompt?: string, count: number = 1) => {
-        return `
+    loot: (userPrompt?: string, count: number = 1): PromptConfig => {
+        const lootFormat = Array.from({ length: count }, (_, i) => {
+            const items = Array.from(
+                { length: 5 },
+                (_, j) => `- item ${j + 1} (gp value)`
+            ).join("\n");
+            return `Name: <Loot Name>\n${items}`;
+        }).join("\n\n");
+
+        return {
+            prompt: `
+Generate ${count} misc. loot list${count > 1 ? "s" : ""}.
+${userPrompt ? `User prompt: ${userPrompt}` : ""}
+
+Format:
+
+${lootFormat}
+        `.trim(),
+            model: "gpt-4.1-nano-2025-04-14",
+        };
+    },
+
+    "magic-item": (userPrompt?: string, count: number = 1): PromptConfig => {
+        return {
+            prompt: `
 Generate ${count} D&D 5e magic item${count > 1 ? "s" : ""}.
 ${userPrompt ? `User prompt: ${userPrompt}` : ""}
 Format:
@@ -99,10 +127,13 @@ Cost: [Gold piece value appropriate for its rarity]
 (if weapons add "Damage:")
 \n\n
 [Item effects and properties in 1-3 sentences.]
-`;
+`,
+        };
     },
 
-    character: (userPrompt?: string, count: number = 1) => `
+    character: (userPrompt?: string, count: number = 1): PromptConfig => {
+        return {
+            prompt: `
 Here are some character examples
 ${characterExamples}
 
@@ -121,8 +152,12 @@ Bond: ...
 \n
 "[quote from the character]"
 `,
+        };
+    },
 
-    location: (userPrompt?: string, count: number = 1) => `
+    location: (userPrompt?: string, count: number = 1): PromptConfig => {
+        return {
+            prompt: `
 Here are some location examples
 ${locationExamples}
 
@@ -140,8 +175,12 @@ Biome: [City, Coast, Town, Desert, Forest, Mountains, Plains, Dungeon]
 
 - [Interesting detail in a few short words.]
 `,
+        };
+    },
 
-    encounter: (userPrompt?: string, count: number = 1) => `
+    encounter: (userPrompt?: string, count: number = 1): PromptConfig => {
+        return {
+            prompt: `
 Generate ${count} D&D 5e encounter${count > 1 ? "s" : ""}:
 ${userPrompt ? `User prompt: ${userPrompt}` : ""}
 Format:
@@ -152,8 +191,12 @@ NPCs: ...
 
 Consequences: [rewards, loot, or consequences]
 `,
+        };
+    },
 
-    quest: (userPrompt?: string) => `
+    quest: (userPrompt?: string): PromptConfig => {
+        return {
+            prompt: `
 Generate a D&D 5e quest.
 ${userPrompt ? `User prompt: ${userPrompt}` : ""}
 Format:
@@ -178,6 +221,8 @@ Rewards: ...
 
 FollowUps: ...
 `,
+        };
+    },
 } as const;
 
 export type GeneratorKind = keyof typeof PROMPTS; // "magic-item" | "character" | …

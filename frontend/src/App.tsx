@@ -15,7 +15,7 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
 import { FaCoins, FaMapLocationDot } from "react-icons/fa6";
-import { GiSpellBook } from "react-icons/gi";
+import { GiSpellBook, GiSwapBag } from "react-icons/gi";
 import { IoPersonCircle } from "react-icons/io5";
 import { TbCrystalBall } from "react-icons/tb";
 import { NavLink, Route, Routes } from "react-router";
@@ -35,8 +35,10 @@ function App() {
     const navbarLinks = [
         // { to: "/lore", label: "Lore", icon: <FaBook /> },
         { to: "/magic-item", label: "Magic Items", icon: <TbCrystalBall /> },
+        { to: "/loot", label: "Loot", icon: <GiSwapBag /> },
         { to: "/character", label: "Characters", icon: <IoPersonCircle /> },
         { to: "/location", label: "Locations", icon: <FaMapLocationDot /> },
+
         // { to: "/encounter", label: "Encounters", icon: <GiSeaCreature /> },
         // { to: "/quest", label: "Quests", icon: <FaExclamationCircle /> },
     ];

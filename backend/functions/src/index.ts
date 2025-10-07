@@ -235,8 +235,8 @@ app.post(
         const kind = req.params.kind as GeneratorKind;
 
         // Grab prompt & Validate
-        const makePrompt = PROMPTS[kind];
-        if (!makePrompt) {
+        const makePromptConfig = PROMPTS[kind];
+        if (!makePromptConfig) {
             return res
                 .status(404)
                 .json({ success: false, error: `Unknown generator ${kind}` });
@@ -251,7 +251,6 @@ app.post(
         }
         const { count, userPrompt } = parsed.data;
 
-        console.log("running chat completion??");
         try {
             // Build prompt text
             //const basePrompt = makePrompt(userPrompt);
@@ -266,9 +265,12 @@ app.post(
             */
 
             // Chat completion
+            const promptConfig = makePromptConfig(userPrompt, count);
             const response = await chatCompletion(
-                makePrompt(userPrompt, count)
+                promptConfig.prompt,
+                promptConfig.model
             );
+
             const items: string[] = [response];
 
             // Send Response
