@@ -27,13 +27,14 @@ const HomePage = () => {
                     </Text>
 
                     <IconStoryLoader />
-                    <Text size='md' ta='center' c={theme.colors.gray[7]}>
+                    <Text size='lg' ta='center' c={theme.colors.gray[7]}>
                         DnG helps game masters generate content tailored for
-                        their adventures. Whether you’re building a new campaign
-                        or fleshing out tonight’s session, get inspired and keep
-                        the story moving.
+                        their adventures.
+                        {"\n\n"}
+                        Whether you’re building a new campaign or fleshing out
+                        tonight’s session, get inspired and keep the story
+                        moving!
                     </Text>
-                    {/* <SignInForm /> */}
                 </Stack>
             </Center>
         </Container>

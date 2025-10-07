@@ -9,13 +9,16 @@ import "./index.css";
 import "@mantine/core/styles.css";
 import "@mantine/tiptap/styles.css";
 
+import { AuthProvider } from "./features/auth/AuthContext.tsx";
 import { theme } from "./theme.ts";
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
         <BrowserRouter>
             <MantineProvider theme={theme}>
-                <App />
+                <AuthProvider>
+                    <App />
+                </AuthProvider>
             </MantineProvider>
         </BrowserRouter>
     </StrictMode>

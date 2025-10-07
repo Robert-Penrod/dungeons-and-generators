@@ -3,6 +3,7 @@ import { auth } from "@/lib/firebase";
 import {
     createUserWithEmailAndPassword,
     GoogleAuthProvider,
+    signInAnonymously,
     signInWithEmailAndPassword,
     signInWithPopup,
     signOut,
@@ -20,6 +21,10 @@ export async function signInWithEmail(email: string, password: string) {
 
 export async function signUpWithEmail(email: string, password: string) {
     return createUserWithEmailAndPassword(auth, email, password);
+}
+
+export async function signInAnonymous() {
+    return signInAnonymously(auth);
 }
 
 export function logout() {
