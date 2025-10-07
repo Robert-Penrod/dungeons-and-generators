@@ -1,6 +1,7 @@
 import {
     ActionIcon,
     Alert,
+    Box,
     Button,
     Divider,
     Group,
@@ -9,8 +10,9 @@ import {
     Text,
     Textarea,
     Title,
+    useMantineTheme,
 } from "@mantine/core";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { FaCoins, FaStop } from "react-icons/fa6";
 import { RiErrorWarningLine } from "react-icons/ri";
 import ContentCard from "../components/ContentCard";
@@ -19,6 +21,7 @@ import { useGenerateContent } from "../features/generation/hooks/useGenerateCont
 
 interface GenerationPageProps {
     generatorType: string;
+    icon?: ReactNode;
     onGenerate?: () => void;
 }
 
@@ -26,6 +29,8 @@ const GenerationPage = (props: GenerationPageProps) => {
     const [prompt, setPrompt] = useState<string>("");
     const { data, isLoading, error, title, generate, cancel, canCancel } =
         useGenerateContent(props.generatorType);
+
+    const theme = useMantineTheme();
 
     useEffect(() => {
         setPrompt("");
@@ -69,7 +74,17 @@ const GenerationPage = (props: GenerationPageProps) => {
     return (
         <>
             <Stack align='center' mb='xl'>
-                <Title mx='auto'>{title} Generator</Title>
+                <Group>
+                    <Title mx='auto'>
+                        <Box
+                            style={{ verticalAlign: "-4px" }}
+                            display='inline-block'
+                        >
+                            {props.icon}
+                        </Box>{" "}
+                        {title}s{" "}
+                    </Title>
+                </Group>
                 <Textarea
                     onChange={(e) => {
                         setPrompt(e.target.value);
@@ -118,7 +133,12 @@ const GenerationPage = (props: GenerationPageProps) => {
                         </ActionIcon>
                     )}
                 </Group>
-                <Divider w='100%' />
+                <Divider
+                    w='100%'
+                    size='md'
+                    color={theme.colors.blue[2]}
+                    opacity={0.5}
+                />
                 {error && (
                     <Alert
                         color='red'

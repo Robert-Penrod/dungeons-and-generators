@@ -133,6 +133,7 @@ function App() {
                                 path={navLinkData.to}
                                 element={
                                     <GenerationPage
+                                        icon={navLinkData.icon}
                                         generatorType={navLinkData.to.slice(1)}
                                         onGenerate={() => {
                                             setCoinCount(coinCount - 1);

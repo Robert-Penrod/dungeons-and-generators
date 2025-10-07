@@ -33,6 +33,7 @@ const HomePage = () => {
                         or fleshing out tonight’s session, get inspired and keep
                         the story moving.
                     </Text>
+                    {/* <SignInForm /> */}
                 </Stack>
             </Center>
         </Container>
