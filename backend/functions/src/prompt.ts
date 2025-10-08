@@ -94,6 +94,99 @@ export interface PromptConfig {
 }
 
 export const PROMPTS = {
+    "wild-magic": (userPrompt?: string, count: number = 1): PromptConfig => {
+        return {
+            prompt: `Generate ${count} wild magic effect${count > 1 ? "s" : ""}.
+            ${userPrompt ? `User prompt: ${userPrompt}` : ""}
+            Format:
+            Name: <Effect Name>
+          
+            <succinct effect>
+
+            Name: Blink
+
+            The caster blinks randomly between their current position and a location within 30 feet each round for the next minute.
+
+            Name: Gravity Flip
+
+            Gravity reverses for 6 seconds, causing creatures and objects to float upward before settling again.
+
+            Name: Polymorph
+
+            The caster is polymorphed into a chicken for the next minute.
+
+            Name: Fireball
+
+            The caster casts fireball centered on theirself.
+            `,
+            model: lightModelName,
+        };
+    },
+
+    puzzle: (userPrompt?: string, count: number = 1): PromptConfig => {
+        return {
+            prompt: `
+Generate ${count} D&D 5e puzzle${count > 1 ? "s" : ""}.
+${userPrompt ? `User prompt: ${userPrompt}` : ""}
+Format:
+Name: <Puzzle Name>
+
+<short mechanical puzzle description in a few words>
+
+Solution: <a few words>
+
+Consequences: <a few words>
+`,
+        };
+    },
+
+    riddle: (userPrompt?: string, count: number = 1): PromptConfig => {
+        return {
+            prompt: `
+            Generate ${count} classic fantasy tabletop riddle${
+                count > 1 ? "s" : ""
+            }.
+${userPrompt ? `User prompt: ${userPrompt}` : ""}
+Format:
+
+Name: <Riddle Name>
+
+<Riddle>
+
+Answer: <Riddle Answer>
+
+Name: <Riddle Name>
+
+<Riddle>
+
+Answer: <Riddle Answer>
+
+            `,
+        };
+    },
+
+    name: (userPrompt?: string, count: number = 1): PromptConfig => {
+        const lootFormat = Array.from({ length: count }, (_, i) => {
+            const items = Array.from(
+                { length: 5 },
+                (_, j) => `- name ${j + 1}`
+            ).join("\n");
+            return `Name: <Name List Name>\n${items}`;
+        }).join("\n\n");
+
+        return {
+            prompt: `
+Generate ${count} misc. fantasy name list${count > 1 ? "s" : ""}.
+${userPrompt ? `User prompt: ${userPrompt}` : ""}
+
+Format:
+
+${lootFormat}
+        `.trim(),
+            model: lightModelName,
+        };
+    },
+
     loot: (userPrompt?: string, count: number = 1): PromptConfig => {
         const lootFormat = Array.from({ length: count }, (_, i) => {
             const items = Array.from(
@@ -183,46 +276,56 @@ Biome: [City, Coast, Town, Desert, Forest, Mountains, Plains, Dungeon]
     encounter: (userPrompt?: string, count: number = 1): PromptConfig => {
         return {
             prompt: `
-Generate ${count} D&D 5e encounter${count > 1 ? "s" : ""}:
+Generate ${count} D&D 5e encounter${count > 1 ? "s" : ""}.
 ${userPrompt ? `User prompt: ${userPrompt}` : ""}
 Format:
-Name: ...
-Situation: ...
+Name: <Encounter Name>
+\n
+<Encounter description in a few words>
+\n
+Consequences: <rewards, loot, or consequences>
 
-NPCs: ...
-
-Consequences: [rewards, loot, or consequences]
+Name: <Encounter Name>
+\n
+<Encounter description in a few words>
+\n
+Consequences: <rewards, loot, or consequences>
 `,
         };
     },
 
-    quest: (userPrompt?: string): PromptConfig => {
+    quest: (userPrompt?: string, count: number = 1): PromptConfig => {
         return {
             prompt: `
-Generate a D&D 5e quest.
+Generate ${count} D&D 5e quest${count > 1 ? "s" : ""}.
 ${userPrompt ? `User prompt: ${userPrompt}` : ""}
 Format:
-Name: ...
-Level: #
-
-[Summary]
-
-Hook: ...
-
-Outline: ...
-
-Encounters: ...
-
-NPCs: ...
-
-Locations: ...
-
-Twists: ...
-
-Rewards: ...
-
-FollowUps: ...
+Name: <Quest Name>
+\n
+<Quest description in a few words>
+\n
+Rewards: <Quest Rewards>
 `,
+        };
+    },
+
+    "secrets-clues": (userPrompt?: string, count: number = 1): PromptConfig => {
+        const s = `${count > 1 ? "s" : ""}`;
+
+        return {
+            prompt: `
+            Generate ${count} D&D 5e Secret${s}/Clue${s}/Rumor${s}.
+${userPrompt ? `User prompt: ${userPrompt}` : ""}
+Format:
+Name: <name>
+\n
+<Secret/Clue/Rumor in a few words>
+
+Name: <name>
+\n
+<Secret/Clue/Rumor in a few words>
+            `,
+            model: lightModelName,
         };
     },
 } as const;

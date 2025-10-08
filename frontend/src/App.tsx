@@ -14,9 +14,18 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
-import { FaCoins, FaMapLocationDot } from "react-icons/fa6";
-import { GiSpellBook, GiSwapBag } from "react-icons/gi";
+import {
+    FaCoins,
+    FaIdCard,
+    FaLink,
+    FaMagnifyingGlass,
+    FaMapLocationDot,
+    FaPuzzlePiece,
+} from "react-icons/fa6";
+import { GiExplosionRays, GiSpellBook, GiSwapBag } from "react-icons/gi";
 import { IoPersonCircle } from "react-icons/io5";
+import { PiFilmSlateFill } from "react-icons/pi";
+import { RiQuestionnaireFill } from "react-icons/ri";
 import { TbCrystalBall } from "react-icons/tb";
 import { NavLink, Route, Routes } from "react-router";
 import "./App.css";
@@ -24,6 +33,7 @@ import { signInAnonymous } from "./features/auth/authActions";
 import { useAuth } from "./features/auth/AuthContext";
 import GenerationPage from "./pages/GenerationPage";
 import HomePage from "./pages/HomePage";
+import LinkPage from "./pages/LinkPage";
 
 function App() {
     const [opened, { toggle, close }] = useDisclosure();
@@ -34,13 +44,32 @@ function App() {
 
     const navbarLinks = [
         // { to: "/lore", label: "Lore", icon: <FaBook /> },
+
+        { to: "/name", label: "Names ⚡", icon: <FaIdCard /> },
+        {
+            to: "/wild-magic",
+            label: "Wild Magic ⚡",
+            icon: <GiExplosionRays />,
+        },
+        {
+            to: "/loot",
+            label: "Loot ⚡",
+            icon: <GiSwapBag />,
+        },
+        {
+            to: "/secrets-clues",
+            label: "Secrets/Clues ⚡",
+            icon: <FaMagnifyingGlass />,
+        },
         { to: "/magic-item", label: "Magic Items", icon: <TbCrystalBall /> },
-        { to: "/loot", label: "Loot", icon: <GiSwapBag /> },
         { to: "/character", label: "Characters", icon: <IoPersonCircle /> },
         { to: "/location", label: "Locations", icon: <FaMapLocationDot /> },
+        { to: "/quest", label: "Quests", icon: <RiQuestionnaireFill /> },
+        { to: "/encounter", label: "Encounters", icon: <PiFilmSlateFill /> },
 
-        // { to: "/encounter", label: "Encounters", icon: <GiSeaCreature /> },
-        // { to: "/quest", label: "Quests", icon: <FaExclamationCircle /> },
+        { to: "/puzzle", label: "Puzzles", icon: <FaPuzzlePiece /> },
+        // { to: "/riddle", label: "Riddles", icon: <GiScrollUnfurled /> },
+        { to: "/other-tools", label: "Other Tools", icon: <FaLink /> },
     ];
 
     if (loading)
@@ -189,6 +218,7 @@ function App() {
                 ) : (
                     <Routes>
                         <Route path='/' element={<HomePage />} />
+                        <Route path='other-tools' element={<LinkPage />} />
                         {/* <Route path='/lore' element={<LorePage />} /> */}
                         {navbarLinks.map((navLinkData) => {
                             return (

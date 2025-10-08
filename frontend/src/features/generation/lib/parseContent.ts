@@ -27,6 +27,13 @@ export function parseContent(contentStrings: string[]): ContentData[] {
             // Body literally "null" → treat as empty
             if (/^null$/i.test(body)) body = "";
 
+            // Remove lines that only contain ---
+            body = body
+                .split("\n")
+                .filter((line) => line.trim() !== "---")
+                .join("\n")
+                .trim();
+
             // Extract "ReactIcon: <label>" line
             const reactIconRe = /(^|\n)\s*ReactIcon:\s*([^\n]+)\s*(?:\n|$)/i;
             let iconString = "";
@@ -62,6 +69,13 @@ export function parseContent(contentStrings: string[]): ContentData[] {
 
             // Body literally "null" → treat as empty
             if (/^null$/i.test(body)) body = "";
+
+            // Remove lines that only contain ---
+            body = body
+                .split("\n")
+                .filter((line) => line.trim() !== "---")
+                .join("\n")
+                .trim();
 
             // Extract "ReactIcon: <label>" line
             const reactIconRe = /(^|\n)\s*ReactIcon:\s*([^\n]+)\s*(?:\n|$)/i;
