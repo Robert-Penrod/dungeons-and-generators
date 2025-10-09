@@ -268,7 +268,8 @@ app.post(
             const promptConfig = makePromptConfig(userPrompt, count);
             const response = await chatCompletion(
                 promptConfig.prompt,
-                promptConfig.model
+                promptConfig.model,
+                promptConfig.temp
             );
 
             const items: string[] = [response];

@@ -91,34 +91,40 @@ The kingdom used to be a thriving center of trade. The times changed, bringing h
 export interface PromptConfig {
     prompt: string;
     model?: string;
+    temp?: number;
 }
 
 export const PROMPTS = {
     "wild-magic": (userPrompt?: string, count: number = 1): PromptConfig => {
         return {
-            prompt: `Generate ${count} wild magic effect${count > 1 ? "s" : ""}.
-            ${userPrompt ? `User prompt: ${userPrompt}` : ""}
-            Format:
-            Name: <Effect Name>
-          
-            <succinct effect>
+            prompt: `Generate ${count} unique wild magic effect${
+                count > 1 ? "s" : ""
+            } based on the criteria below. ${
+                userPrompt ? `Additional user prompt: ${userPrompt}` : ""
+            }
 
-            Name: Blink
+Format:
+Each effect must follow this structure:
 
-            The caster blinks randomly between their current position and a location within 30 feet each round for the next minute.
+Name: <Effect Name>
 
-            Name: Gravity Flip
+<Concise mechanical description of the effect>
 
-            Gravity reverses for 6 seconds, causing creatures and objects to float upward before settling again.
+Name: Blink
 
-            Name: Polymorph
+The caster randomly teleports to a location within 30 feet at the start of each turn for 1 minute.
 
-            The caster is polymorphed into a chicken for the next minute.
+Name: Gravity Flip
 
-            Name: Fireball
+For 6 seconds, gravity inverts within a 20-foot radius. Creatures and unsecured objects rise 20 feet before falling when gravity returns.
 
-            The caster casts fireball centered on theirself.
-            `,
+Name: Polymorph
+
+The caster is transformed into a chicken for 1 minute.
+
+Name: Fireball
+
+The caster immediately casts Fireball centered on themselves.`,
             model: lightModelName,
         };
     },
