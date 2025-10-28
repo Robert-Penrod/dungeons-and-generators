@@ -55,7 +55,7 @@ export function useGenerateContent(generatorType: string) {
                         signal: controller.signal,
                         body: JSON.stringify({
                             count,
-                            temperature, // you were logging it; now included in the payload
+                            temperature,
                             ...(prompt ? { userPrompt: prompt } : {}),
                         }),
                     }
