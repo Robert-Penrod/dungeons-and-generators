@@ -29,8 +29,6 @@ import { RiQuestionnaireFill } from "react-icons/ri";
 import { TbCrystalBall } from "react-icons/tb";
 import { NavLink, Route, Routes } from "react-router";
 import "./App.css";
-import { signInAnonymous } from "./features/auth/authActions";
-import { useAuth } from "./features/auth/AuthContext";
 import GenerationPage from "./pages/GenerationPage";
 import HomePage from "./pages/HomePage";
 import LinkPage from "./pages/LinkPage";
@@ -38,7 +36,9 @@ import LinkPage from "./pages/LinkPage";
 function App() {
     const [opened, { toggle, close }] = useDisclosure();
     const theme = useMantineTheme();
-    const { user, loading } = useAuth();
+
+    const loading = false;
+    const user = null;
 
     const [coinCount, setCoinCount] = useState<number>(200);
 
@@ -209,7 +209,9 @@ function App() {
                                     textTransform: "uppercase",
                                     letterSpacing: "0.5px",
                                 }}
-                                onClick={() => signInAnonymous()}
+                                onClick={() => {
+                                    // Trigger Sign in Form
+                                }}
                             >
                                 START GENERATING
                             </Button>
