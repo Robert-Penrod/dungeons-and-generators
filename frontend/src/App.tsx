@@ -13,9 +13,7 @@ import {
     useMantineTheme,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { useState } from "react";
 import {
-    FaCoins,
     FaIdCard,
     FaLink,
     FaMagnifyingGlass,
@@ -38,9 +36,7 @@ function App() {
     const theme = useMantineTheme();
 
     const loading = false;
-    const user = null;
-
-    const [coinCount, setCoinCount] = useState<number>(200);
+    const user = 1;
 
     const navbarLinks = [
         // { to: "/lore", label: "Lore", icon: <FaBook /> },
@@ -128,14 +124,14 @@ function App() {
                         </NavLink>
                     </Flex>
                     <Group>
-                        {user && (
+                        {/* {user && (
                             <Group gap={7}>
                                 <Text size='lg' c='gold' fw='bold'>
                                     {coinCount}
                                 </Text>
                                 <FaCoins color='gold' size={24} />
                             </Group>
-                        )}
+                        )} */}
                         <Avatar src={null} alt='nothing yet' />
                     </Group>
                 </Flex>
@@ -234,7 +230,7 @@ function App() {
                                                 1
                                             )}
                                             onGenerate={() => {
-                                                setCoinCount(coinCount - 1);
+                                                //setCoinCount(coinCount - 1);
                                             }}
                                         />
                                     }

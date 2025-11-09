@@ -7,13 +7,12 @@ import {
     Group,
     SimpleGrid,
     Stack,
-    Text,
     Textarea,
     Title,
     useMantineTheme,
 } from "@mantine/core";
 import { useEffect, useState, type ReactNode } from "react";
-import { FaCoins, FaStop } from "react-icons/fa6";
+import { FaStop } from "react-icons/fa6";
 import { RiErrorWarningLine } from "react-icons/ri";
 import ContentCard from "../components/ContentCard";
 import GenerativeLoader from "../components/loaders/GenerativeLoader";
@@ -30,7 +29,6 @@ const GenerationPage = (props: GenerationPageProps) => {
     const [prompt, setPrompt] = useState<string>("");
     const { data, isLoading, error, generate, cancel, canCancel } =
         useGenerateContent(props.generatorType);
-
     const theme = useMantineTheme();
 
     useEffect(() => {
@@ -101,21 +99,21 @@ const GenerationPage = (props: GenerationPageProps) => {
                             generate(8, prompt);
                             if (props.onGenerate) props.onGenerate();
                         }}
-                        leftSection={
-                            <Group gap={7}>
-                                <Text
-                                    c={isLoading ? undefined : "gold"}
-                                    size='lg'
-                                    fw='bold'
-                                >
-                                    -
-                                </Text>
-                                <FaCoins
-                                    color={isLoading ? undefined : "gold"}
-                                    size={24}
-                                />
-                            </Group>
-                        }
+                        // leftSection={
+                        //     <Group gap={7}>
+                        //         <Text
+                        //             c={isLoading ? undefined : "gold"}
+                        //             size='lg'
+                        //             fw='bold'
+                        //         >
+                        //             -
+                        //         </Text>
+                        //         <FaCoins
+                        //             color={isLoading ? undefined : "gold"}
+                        //             size={24}
+                        //         />
+                        //     </Group>
+                        // }
                         disabled={isLoading}
                     >
                         Generate
