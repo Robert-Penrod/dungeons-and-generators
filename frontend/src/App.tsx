@@ -13,7 +13,6 @@ import {
     useMantineTheme,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { useState } from "react";
 import {
     FaIdCard,
     FaLink,
@@ -39,7 +38,7 @@ function App() {
     const theme = useMantineTheme();
     const { user, loading } = useAuth();
 
-    const [coinCount, setCoinCount] = useState<number>(200);
+    //const [coinCount, setCoinCount] = useState<number>(200);
 
     const navbarLinks = [
         // { to: "/lore", label: "Lore", icon: <FaBook /> },
