@@ -13,6 +13,7 @@ import {
     useMantineTheme,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { useState } from "react";
 import {
     FaIdCard,
     FaLink,
@@ -27,6 +28,8 @@ import { RiQuestionnaireFill } from "react-icons/ri";
 import { TbCrystalBall } from "react-icons/tb";
 import { NavLink, Route, Routes } from "react-router";
 import "./App.css";
+import { signInAnonymous } from "./features/auth/authActions";
+import { useAuth } from "./features/auth/AuthContext";
 import GenerationPage from "./pages/GenerationPage";
 import HomePage from "./pages/HomePage";
 import LinkPage from "./pages/LinkPage";
@@ -34,9 +37,9 @@ import LinkPage from "./pages/LinkPage";
 function App() {
     const [opened, { toggle, close }] = useDisclosure();
     const theme = useMantineTheme();
+    const { user, loading } = useAuth();
 
-    const loading = false;
-    const user = 1;
+    const [coinCount, setCoinCount] = useState<number>(200);
 
     const navbarLinks = [
         // { to: "/lore", label: "Lore", icon: <FaBook /> },
@@ -205,9 +208,7 @@ function App() {
                                     textTransform: "uppercase",
                                     letterSpacing: "0.5px",
                                 }}
-                                onClick={() => {
-                                    // Trigger Sign in Form
-                                }}
+                                onClick={() => signInAnonymous()}
                             >
                                 START GENERATING
                             </Button>
