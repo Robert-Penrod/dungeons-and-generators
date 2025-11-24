@@ -1,9 +1,10 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { GeneratedCardContext } from "@/context/GeneratedCardContext";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { makeEndpoint, makeTitle } from "../lib/generatorCatalogue";
-import { parseContent, type ContentData } from "./../lib/parseContent";
+import { parseContent } from "./../lib/parseContent";
 
 export function useGenerateContent(generatorType: string) {
-    const [data, setData] = useState<ContentData[]>();
+    const { cardData, setCardData } = useContext(GeneratedCardContext);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<Error | null>(null);
     const title = makeTitle(generatorType);
@@ -17,10 +18,9 @@ export function useGenerateContent(generatorType: string) {
         controllerRef.current?.abort();
         controllerRef.current = null;
 
-        setData(undefined);
         setIsLoading(false);
         setError(null);
-    }, [generatorType]);
+    }, [generatorType, setCardData]);
 
     // Abort on unmount
     useEffect(() => {
@@ -67,7 +67,10 @@ export function useGenerateContent(generatorType: string) {
 
                 // Only apply if this is still the latest request
                 if (reqId === requestIdRef.current) {
-                    setData(parseContent(json.data.items));
+                    setCardData((prev) => ({
+                        ...prev,
+                        [generatorType]: parseContent(json.data.items),
+                    }));
                 }
             } catch (e) {
                 // Swallow AbortError as a non-error UX, but keep other errors
@@ -87,7 +90,7 @@ export function useGenerateContent(generatorType: string) {
                 }
             }
         },
-        [generatorType]
+        [generatorType, setCardData]
     );
 
     const cancel = useCallback(() => {
@@ -100,5 +103,13 @@ export function useGenerateContent(generatorType: string) {
 
     const canCancel = !!controllerRef.current;
 
-    return { data, isLoading, error, title, generate, cancel, canCancel };
+    return {
+        data: cardData[generatorType],
+        isLoading,
+        error,
+        title,
+        generate,
+        cancel,
+        canCancel,
+    };
 }
