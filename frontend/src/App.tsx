@@ -13,6 +13,8 @@ import {
     useMantineTheme,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { useContext } from "react";
+import { FaCheckSquare } from "react-icons/fa";
 import {
     FaIdCard,
     FaLink,
@@ -27,6 +29,7 @@ import { RiQuestionnaireFill } from "react-icons/ri";
 import { TbCrystalBall } from "react-icons/tb";
 import { NavLink, Route, Routes } from "react-router";
 import "./App.css";
+import { GeneratorDataContext } from "./context/GeneratorDataContext";
 import { signInAnonymous } from "./features/auth/authActions";
 import GenerationPage from "./pages/GenerationPage";
 import HomePage from "./pages/HomePage";
@@ -38,6 +41,8 @@ function App() {
     //const { user, loading } = useAuth();
     const user = 1;
     const loading = false;
+
+    const { generators } = useContext(GeneratorDataContext);
 
     //const [coinCount, setCoinCount] = useState<number>(200);
 
@@ -84,7 +89,7 @@ function App() {
             navbar={
                 user
                     ? {
-                          width: 200,
+                          width: 225,
                           breakpoint: "sm",
                           collapsed: { mobile: !opened },
                       }
@@ -169,9 +174,25 @@ function App() {
                                     transition: "all 0.2s ease",
                                 })}
                             >
-                                <Group>
-                                    {link.icon} <Text>{link.label}</Text>
-                                </Group>
+                                <Flex align='center' justify='space-between'>
+                                    <Group>
+                                        {link.icon} <Text>{link.label}</Text>{" "}
+                                    </Group>
+                                    {(generators[link.to.slice(1)]
+                                        ?.isLoading && (
+                                        <Loader
+                                            size='xs'
+                                            color='white'
+                                            type='dots'
+                                        />
+                                    )) ?? <></>}
+                                    {(generators[link.to.slice(1)]?.cardData
+                                        .length > 0 &&
+                                        !generators[link.to.slice(1)]
+                                            ?.isLoading && (
+                                            <FaCheckSquare />
+                                        )) ?? <></>}
+                                </Flex>
                             </NavLink>
                         ))}
                     </Stack>

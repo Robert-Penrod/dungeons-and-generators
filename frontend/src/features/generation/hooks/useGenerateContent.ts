@@ -1,54 +1,51 @@
-import { GeneratedCardContext } from "@/context/GeneratedCardContext";
-import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import {
+    GeneratorDataContext,
+    type GeneratorEntry,
+} from "@/context/GeneratorDataContext";
+import { useCallback, useContext, useRef } from "react";
 import { makeEndpoint, makeTitle } from "../lib/generatorCatalogue";
-import { parseContent } from "./../lib/parseContent";
+import { parseContent } from "../lib/parseContent";
+
+const emptyEntry: GeneratorEntry = {
+    prompt: "",
+    cardData: [],
+    isLoading: false,
+    error: null,
+};
 
 export function useGenerateContent(generatorType: string) {
-    const { cardData, setCardData } = useContext(GeneratedCardContext);
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState<Error | null>(null);
+    const { generators, setGenerators } = useContext(GeneratorDataContext);
     const title = makeTitle(generatorType);
 
-    // Keep track of the current request so we can cancel/ignore stale results
+    // We only track the *current* request for this hook for `cancel()`
     const controllerRef = useRef<AbortController | null>(null);
-    const requestIdRef = useRef(0);
 
-    useEffect(() => {
-        // Cancel in-flight request when the type changes
-        controllerRef.current?.abort();
-        controllerRef.current = null;
-
-        setIsLoading(false);
-        setError(null);
-    }, [generatorType, setCardData]);
-
-    // Abort on unmount
-    useEffect(() => {
-        return () => {
-            controllerRef.current?.abort();
-            controllerRef.current = null;
-        };
-    }, []);
+    const entry = generators[generatorType] ?? emptyEntry;
 
     const generate = useCallback(
         async (count: number, prompt: string, temperature: number = 1) => {
-            // New request id
-            const reqId = ++requestIdRef.current;
-
-            // Prepare controller and state
-            controllerRef.current?.abort(); // optional: cancel any previous request immediately
+            // New controller for this request (previous one is *not* auto-aborted)
             const controller = new AbortController();
             controllerRef.current = controller;
 
-            setIsLoading(true);
-            setError(null);
+            // Mark this generatorType as loading, clear error
+            setGenerators((prev) => {
+                const prevEntry: GeneratorEntry =
+                    prev[generatorType] ?? emptyEntry;
+
+                return {
+                    ...prev,
+                    [generatorType]: {
+                        ...prevEntry,
+                        isLoading: true,
+                        error: null,
+                    },
+                };
+            });
 
             try {
                 const res = await fetch(
-                    `https://api.dng.quest/${makeEndpoint(generatorType)}`, // Prod Backend
-                    // `http://localhost:5001/dng-app-5f39e/us-central1/api/${makeEndpoint(
-                    //     generatorType
-                    // )}`, // Local Testing
+                    `https://api.dng.quest/${makeEndpoint(generatorType)}`,
                     {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
@@ -64,49 +61,95 @@ export function useGenerateContent(generatorType: string) {
                 if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
                 const json = await res.json();
+                const items = parseContent(json.data.items);
 
-                // Only apply if this is still the latest request
-                if (reqId === requestIdRef.current) {
-                    setCardData((prev) => ({
+                // Update data + loading for this generatorType
+                setGenerators((prev) => {
+                    const prevEntry: GeneratorEntry =
+                        prev[generatorType] ?? emptyEntry;
+
+                    return {
                         ...prev,
-                        [generatorType]: parseContent(json.data.items),
-                    }));
-                }
+                        [generatorType]: {
+                            ...prevEntry,
+                            cardData: items,
+                            isLoading: false,
+                            error: null,
+                        },
+                    };
+                });
             } catch (e) {
-                // Swallow AbortError as a non-error UX, but keep other errors
-                if ((e as DOMException)?.name !== "AbortError") {
-                    if (reqId === requestIdRef.current) {
-                        setError(e instanceof Error ? e : new Error(String(e)));
-                    }
+                // Ignore AbortError as a "non-error"
+                if ((e as DOMException)?.name === "AbortError") {
+                    return;
                 }
+
+                setGenerators((prev) => {
+                    const prevEntry: GeneratorEntry =
+                        prev[generatorType] ?? emptyEntry;
+
+                    return {
+                        ...prev,
+                        [generatorType]: {
+                            ...prevEntry,
+                            isLoading: false,
+                            error:
+                                e instanceof Error ? e : new Error(String(e)),
+                        },
+                    };
+                });
             } finally {
-                // Clear controller if it's ours
+                // If this controller is still the current one, clear it
                 if (controllerRef.current === controller) {
                     controllerRef.current = null;
                 }
-                // Only flip loading if we're still the latest request
-                if (reqId === requestIdRef.current) {
-                    setIsLoading(false);
-                }
             }
         },
-        [generatorType, setCardData]
+        [generatorType, setGenerators]
     );
 
     const cancel = useCallback(() => {
-        controllerRef.current?.abort();
-        controllerRef.current = null;
-        // Optional: reflect cancellation immediately in UI
-        requestIdRef.current++; // invalidate in-flight request
-        setIsLoading(false);
-    }, []);
+        if (controllerRef.current) {
+            controllerRef.current.abort();
+            controllerRef.current = null;
+        }
+
+        // Reflect cancellation in UI for this generatorType
+        setGenerators((prev) => {
+            const prevEntry: GeneratorEntry = prev[generatorType] ?? emptyEntry;
+
+            return {
+                ...prev,
+                [generatorType]: {
+                    ...prevEntry,
+                    isLoading: false,
+                },
+            };
+        });
+    }, [generatorType, setGenerators]);
 
     const canCancel = !!controllerRef.current;
 
+    function setPrompt(prompt: string) {
+        setGenerators((prev) => {
+            const prevEntry: GeneratorEntry = prev[generatorType] ?? emptyEntry;
+
+            return {
+                ...prev,
+                [generatorType]: {
+                    ...prevEntry,
+                    prompt: prompt,
+                },
+            };
+        });
+    }
+
     return {
-        data: cardData[generatorType],
-        isLoading,
-        error,
+        data: entry.cardData,
+        isLoading: entry.isLoading,
+        error: entry.error,
+        prompt: entry.prompt,
+        setPrompt,
         title,
         generate,
         cancel,

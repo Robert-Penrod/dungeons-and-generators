@@ -11,7 +11,7 @@ import {
     Title,
     useMantineTheme,
 } from "@mantine/core";
-import { useEffect, useState, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import { FaStop } from "react-icons/fa6";
 import { RiErrorWarningLine } from "react-icons/ri";
 import ContentCard from "../components/ContentCard";
@@ -26,14 +26,17 @@ interface GenerationPageProps {
 }
 
 const GenerationPage = (props: GenerationPageProps) => {
-    const [prompt, setPrompt] = useState<string>("");
-    const { data, isLoading, error, generate, cancel, canCancel } =
-        useGenerateContent(props.generatorType);
+    const {
+        data,
+        prompt,
+        setPrompt,
+        isLoading,
+        error,
+        generate,
+        cancel,
+        canCancel,
+    } = useGenerateContent(props.generatorType);
     const theme = useMantineTheme();
-
-    useEffect(() => {
-        setPrompt("");
-    }, [props.generatorType]);
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     // const tempSlider = (

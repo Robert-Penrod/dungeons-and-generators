@@ -9,7 +9,7 @@ import "./index.css";
 import "@mantine/core/styles.css";
 import "@mantine/tiptap/styles.css";
 
-import { GeneratedCardProvider } from "./context/GeneratedCardContext.tsx";
+import { GeneratorDataProvider } from "./context/GeneratorDataContext.tsx";
 import { AuthProvider } from "./features/auth/AuthContext.tsx";
 import { theme } from "./theme.ts";
 
@@ -18,9 +18,9 @@ createRoot(document.getElementById("root")!).render(
         <BrowserRouter>
             <MantineProvider theme={theme}>
                 <AuthProvider>
-                    <GeneratedCardProvider>
+                    <GeneratorDataProvider>
                         <App />
-                    </GeneratedCardProvider>
+                    </GeneratorDataProvider>
                 </AuthProvider>
             </MantineProvider>
         </BrowserRouter>
