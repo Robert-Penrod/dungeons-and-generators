@@ -172,6 +172,8 @@ function App() {
                                         ? theme.white
                                         : theme.colors.blue[3],
                                     transition: "all 0.2s ease",
+                                    borderTop: `0px solid ${theme.colors.blue[0]}`,
+                                    borderBottom: `0.5px solid ${theme.colors.blue[3]}22`,
                                 })}
                             >
                                 <Flex align='center' justify='space-between'>
