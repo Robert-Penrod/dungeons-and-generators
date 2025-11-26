@@ -89,7 +89,7 @@ function App() {
             navbar={
                 user
                     ? {
-                          width: 225,
+                          width: 212,
                           breakpoint: "sm",
                           collapsed: { mobile: !opened },
                       }

@@ -70,7 +70,11 @@ const ContentCard = (props: ContentCardProps) => {
                     {editor && (
                         <BubbleMenu
                             editor={editor}
-                            tippyOptions={{ animation: "fade", duration: 250 }}
+                            tippyOptions={{
+                                placement: "bottom",
+                                animation: "fade",
+                                duration: 250,
+                            }}
                         >
                             <RichTextEditor.ControlsGroup>
                                 <RichTextEditor.Bold />
