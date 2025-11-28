@@ -19,6 +19,10 @@ const ContentCard = (props: ContentCardProps) => {
     });
     const theme = useMantineTheme();
 
+    const accent1Color = `#E69A28`;
+    const accent2Color = `#9D3A24`;
+    const titleColor = `#9D3A24`;
+
     // Content update on prop change
     useEffect(() => {
         if (editor && content !== editor.getHTML()) {
@@ -29,12 +33,16 @@ const ContentCard = (props: ContentCardProps) => {
     return (
         <Card
             p='xl'
-            style={{ paddingTop: "1.25em" }}
+            pt='lg'
+            style={{
+                borderTop: `6px solid ${accent1Color}`,
+                //borderBottom: `5px solid ${accentColor}`,
+            }}
             shadow='lg'
-            radius='md'
+            radius='2'
             withBorder
         >
-            <Card.Section>
+            <Card.Section mb='-5px'>
                 <Group>
                     <DynamicIcon
                         name={iconString}
@@ -47,19 +55,13 @@ const ContentCard = (props: ContentCardProps) => {
                         size='lg'
                         fw={1000}
                         spellCheck={false}
-                        style={{ color: theme.colors.blue[6] }}
+                        style={{ color: titleColor }}
                     >
                         {title}
                     </Text>
                 </Group>
             </Card.Section>
-            <Divider
-                mb={5}
-                mt={3}
-                mx={-20}
-                size='md'
-                color={theme.colors.blue[2]}
-            />
+            <Divider mb={5} mt={3} mx={-20} size='md' color={accent2Color} />
             <Card.Section>
                 <RichTextEditor
                     variant='subtle'
