@@ -14,7 +14,6 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useContext } from "react";
-import { FaCheckSquare } from "react-icons/fa";
 import {
     FaIdCard,
     FaLink,
@@ -22,8 +21,14 @@ import {
     FaMapLocationDot,
     FaPuzzlePiece,
 } from "react-icons/fa6";
-import { GiExplosionRays, GiSpellBook, GiSwapBag } from "react-icons/gi";
-import { IoDocument, IoPersonCircle } from "react-icons/io5";
+import {
+    GiExplosionRays,
+    GiScrollUnfurled,
+    GiSpellBook,
+    GiSwapBag,
+    GiTiedScroll,
+} from "react-icons/gi";
+import { IoPersonCircle } from "react-icons/io5";
 import { PiFilmSlateFill } from "react-icons/pi";
 import { RiQuestionnaireFill } from "react-icons/ri";
 import { TbCrystalBall } from "react-icons/tb";
@@ -193,9 +198,9 @@ function App() {
                                         !generators[link.to.slice(1)]
                                             ?.isLoading &&
                                         (generators[link.to.slice(1)].isSeen ? (
-                                            <IoDocument />
+                                            <GiScrollUnfurled />
                                         ) : (
-                                            <FaCheckSquare
+                                            <GiTiedScroll
                                                 color={theme.colors.green[4]}
                                             />
                                         ))) ?? <></>}
