@@ -5,6 +5,7 @@ export type GeneratorEntry = {
     prompt: string;
     cardData: ContentData[];
     isLoading: boolean;
+    isSeen: boolean;
     error: Error | null;
 };
 

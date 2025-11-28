@@ -2,7 +2,7 @@ import {
     GeneratorDataContext,
     type GeneratorEntry,
 } from "@/context/GeneratorDataContext";
-import { useCallback, useContext, useRef } from "react";
+import { useCallback, useContext, useEffect, useRef } from "react";
 import { makeEndpoint, makeTitle } from "../lib/generatorCatalogue";
 import { parseContent } from "../lib/parseContent";
 
@@ -10,6 +10,7 @@ const emptyEntry: GeneratorEntry = {
     prompt: "",
     cardData: [],
     isLoading: false,
+    isSeen: false,
     error: null,
 };
 
@@ -21,6 +22,28 @@ export function useGenerateContent(generatorType: string) {
     const controllerRef = useRef<AbortController | null>(null);
 
     const entry = generators[generatorType] ?? emptyEntry;
+
+    useEffect(() => {
+        const generator = generators[generatorType];
+        if (
+            generator?.cardData?.length > 0 &&
+            !generator.isLoading &&
+            !generator.isSeen
+        ) {
+            setGenerators((prev) => {
+                const prevEntry: GeneratorEntry =
+                    prev[generatorType] ?? emptyEntry;
+
+                return {
+                    ...prev,
+                    [generatorType]: {
+                        ...prevEntry,
+                        isSeen: true,
+                    },
+                };
+            });
+        }
+    }, [generatorType, generators, setGenerators]);
 
     const generate = useCallback(
         async (count: number, prompt: string, temperature: number = 1) => {
@@ -38,6 +61,7 @@ export function useGenerateContent(generatorType: string) {
                     [generatorType]: {
                         ...prevEntry,
                         isLoading: true,
+                        isSeen: false,
                         error: null,
                     },
                 };

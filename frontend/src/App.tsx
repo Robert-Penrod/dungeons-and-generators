@@ -23,7 +23,7 @@ import {
     FaPuzzlePiece,
 } from "react-icons/fa6";
 import { GiExplosionRays, GiSpellBook, GiSwapBag } from "react-icons/gi";
-import { IoPersonCircle } from "react-icons/io5";
+import { IoDocument, IoPersonCircle } from "react-icons/io5";
 import { PiFilmSlateFill } from "react-icons/pi";
 import { RiQuestionnaireFill } from "react-icons/ri";
 import { TbCrystalBall } from "react-icons/tb";
@@ -191,9 +191,14 @@ function App() {
                                     {(generators[link.to.slice(1)]?.cardData
                                         .length > 0 &&
                                         !generators[link.to.slice(1)]
-                                            ?.isLoading && (
-                                            <FaCheckSquare />
-                                        )) ?? <></>}
+                                            ?.isLoading &&
+                                        (generators[link.to.slice(1)].isSeen ? (
+                                            <IoDocument />
+                                        ) : (
+                                            <FaCheckSquare
+                                                color={theme.colors.green[4]}
+                                            />
+                                        ))) ?? <></>}
                                 </Flex>
                             </NavLink>
                         ))}
