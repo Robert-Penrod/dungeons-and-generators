@@ -48,7 +48,7 @@ export function parseContent(contentStrings: string[]): ContentData[] {
             // Bold labels
             if (body) {
                 body = body.replace(
-                    /(^|\n)([A-Za-z][\w ]*?):/g,
+                    /(^|\n)([^:\n]+):/g,
                     "$1<strong>$2:</strong>"
                 );
             }

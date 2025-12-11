@@ -99,7 +99,7 @@ const GenerationPage = (props: GenerationPageProps) => {
                 <Group>
                     <Button
                         onClick={() => {
-                            generate(8, prompt);
+                            generate(6, prompt);
                             if (props.onGenerate) props.onGenerate();
                         }}
                         // leftSection={
@@ -157,6 +157,7 @@ const GenerationPage = (props: GenerationPageProps) => {
             ) : (
                 <SimpleGrid
                     cols={{ base: 1, xs: 1, sm: 1, md: 2, lg: 3, xl: 3 }}
+                    spacing='md'
                 >
                     {data?.map((item, index) => {
                         return (

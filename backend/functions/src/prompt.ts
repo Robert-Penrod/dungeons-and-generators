@@ -256,6 +256,40 @@ Bond: ...
         };
     },
 
+    creature: (userPrompt?: string, count: number = 1): PromptConfig => {
+        return {
+            prompt: `
+            Generate ${count} creature${count > 1 ? "s" : ""} for D&D 5e.
+            ${userPrompt ? `User prompt: ${userPrompt}` : ""}
+            Format:
+Name: ...
+Size, Type
+
+1 succinct detail in a few words.
+
+Challenge: Challenge Rating
+Armor Class: #
+Hit Points: #
+Speed: # ft.
+
+STR: # (modifier)
+DEX: # (modifier)
+CON: # (modifier)
+INT: # (modifier)
+WIS: # (modifier)
+CHA: # (modifier)
+
+PROPERTIES
+name: details
+\n
+
+ACTIONS
+name: details
+\n
+`,
+        };
+    },
+
     location: (userPrompt?: string, count: number = 1): PromptConfig => {
         return {
             prompt: `

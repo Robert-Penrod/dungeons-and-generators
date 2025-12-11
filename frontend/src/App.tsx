@@ -15,6 +15,7 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 import { useContext } from "react";
 import {
+    FaBookmark,
     FaIdCard,
     FaLink,
     FaMagnifyingGlass,
@@ -23,6 +24,7 @@ import {
 } from "react-icons/fa6";
 import {
     GiExplosionRays,
+    GiMonsterGrasp,
     GiScrollUnfurled,
     GiSpellBook,
     GiSwapBag,
@@ -36,6 +38,7 @@ import { NavLink, Route, Routes } from "react-router";
 import "./App.css";
 import { GeneratorDataContext } from "./context/GeneratorDataContext";
 import { signInAnonymous } from "./features/auth/authActions";
+import CollectionPage from "./pages/CollectionPage";
 import GenerationPage from "./pages/GenerationPage";
 import HomePage from "./pages/HomePage";
 import LinkPage from "./pages/LinkPage";
@@ -54,6 +57,7 @@ function App() {
     const navbarLinks = [
         // { to: "/lore", label: "Lore", icon: <FaBook /> },
 
+        { to: "/collection", label: "Collection", icon: <FaBookmark /> },
         { to: "/name", label: "Names ⚡", icon: <FaIdCard /> },
         {
             to: "/wild-magic",
@@ -72,6 +76,7 @@ function App() {
         },
         { to: "/magic-item", label: "Magic Items", icon: <TbCrystalBall /> },
         { to: "/character", label: "Characters", icon: <IoPersonCircle /> },
+        { to: "/creature", label: "Creatures", icon: <GiMonsterGrasp /> },
         { to: "/location", label: "Locations", icon: <FaMapLocationDot /> },
         { to: "/quest", label: "Quests", icon: <RiQuestionnaireFill /> },
         { to: "/encounter", label: "Encounters", icon: <PiFilmSlateFill /> },
@@ -251,6 +256,7 @@ function App() {
                     <Routes>
                         <Route path='/' element={<HomePage />} />
                         <Route path='other-tools' element={<LinkPage />} />
+                        <Route path='collection' element={<CollectionPage />} />
                         {/* <Route path='/lore' element={<LorePage />} /> */}
                         {navbarLinks.map((navLinkData) => {
                             return (
