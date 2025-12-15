@@ -6,6 +6,7 @@ import {
     Divider,
     Group,
     Text,
+    Tooltip,
     useMantineTheme,
 } from "@mantine/core";
 import { RichTextEditor } from "@mantine/tiptap";
@@ -35,7 +36,7 @@ const ContentCard = (props: ContentCardProps) => {
     const bottomColor = accent1Color;
     const buttonColor = accent2Color;
 
-    const [isCopied, resetCopyTimer] = useSimpleTimer(500);
+    const [isCopied, resetCopyTimer] = useSimpleTimer(1000);
 
     // Content update on prop change
     useEffect(() => {
@@ -157,7 +158,18 @@ const ContentCard = (props: ContentCardProps) => {
                                     resetCopyTimer();
                                 }}
                             >
-                                {isCopied ? <FaClipboardCheck /> : <FaCopy />}
+                                <Tooltip
+                                    label='Copied!'
+                                    opened={isCopied}
+                                    position='top'
+                                    withArrow
+                                >
+                                    {isCopied ? (
+                                        <FaClipboardCheck />
+                                    ) : (
+                                        <FaCopy />
+                                    )}
+                                </Tooltip>
                             </ActionIcon>
                             <ActionIcon color={buttonColor}>
                                 <FaBookmark />
