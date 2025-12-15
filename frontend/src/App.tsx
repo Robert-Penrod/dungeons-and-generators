@@ -215,7 +215,7 @@ function App() {
                     </Stack>
                 </AppShell.Navbar>
             )}
-            <AppShell.Main style={{ backgroundColor: "#EAE9E7" }}>
+            <AppShell.Main className='paper-bg'>
                 {!user ? (
                     <Container>
                         <HomePage />

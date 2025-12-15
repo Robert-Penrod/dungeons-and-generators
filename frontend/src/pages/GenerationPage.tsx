@@ -16,7 +16,7 @@ import { FaStop } from "react-icons/fa6";
 import { RiErrorWarningLine } from "react-icons/ri";
 import ContentCard from "../components/ContentCard";
 import GenerativeLoader from "../components/loaders/GenerativeLoader";
-import { useGenerateContent } from "../features/generation/hooks/useGenerateContent";
+import { useGenerateContent } from "../hooks/useGenerateContent";
 
 interface GenerationPageProps {
     generatorType: string;

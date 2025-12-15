@@ -3,8 +3,8 @@ import {
     type GeneratorEntry,
 } from "@/context/GeneratorDataContext";
 import { useCallback, useContext, useEffect, useRef } from "react";
-import { makeEndpoint, makeTitle } from "../lib/generatorCatalogue";
-import { parseContent } from "../lib/parseContent";
+import { makeEndpoint, makeTitle } from "../features/lib/generatorCatalogue";
+import { parseContent } from "../features/lib/parseContent";
 
 const emptyEntry: GeneratorEntry = {
     prompt: "",

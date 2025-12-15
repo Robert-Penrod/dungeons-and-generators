@@ -1,4 +1,4 @@
-import type { ContentData } from "@/features/generation/lib/parseContent";
+import type { ContentData } from "@/features/lib/parseContent";
 import React, { createContext, useState } from "react";
 
 export type GeneratorEntry = {
