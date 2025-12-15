@@ -37,6 +37,7 @@ const ContentCard = (props: ContentCardProps) => {
             style={{
                 borderTop: `6px solid ${accent1Color}`,
                 //borderBottom: `5px solid ${accentColor}`,
+                height: "fit-content",
             }}
             shadow='lg'
             radius='2'
