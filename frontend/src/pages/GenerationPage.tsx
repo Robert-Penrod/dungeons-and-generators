@@ -8,7 +8,6 @@ import {
     Stack,
     Textarea,
     Title,
-    useMantineTheme,
 } from "@mantine/core";
 import { type ReactNode } from "react";
 import { FaCog } from "react-icons/fa";
@@ -35,7 +34,6 @@ const GenerationPage = (props: GenerationPageProps) => {
         cancel,
         canCancel,
     } = useGenerateContent(props.generatorType);
-    const theme = useMantineTheme();
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     // const tempSlider = (
