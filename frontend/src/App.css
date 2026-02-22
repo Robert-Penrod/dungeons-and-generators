@@ -36,20 +36,5 @@ p:focus {
 }
 
 .paper-bg {
-    position: relative;
-    background-image: url("assets/images/parchment/Y7_Mirror.png");
-    background-repeat: "repeat";
-    background-size: 1800px 1800px;
-    z-index: 0;
-}
-
-.paper-bg::before {
-    content: "";
-    position: absolute;
-    inset: 0;
     background-color: #eae9e7;
-    opacity: 0.8;
-
-    pointer-events: none;
-    z-index: -1;
 }

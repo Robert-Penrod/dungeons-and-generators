@@ -4,7 +4,6 @@ import {
     Alert,
     Box,
     Button,
-    Divider,
     Group,
     Stack,
     Textarea,
@@ -75,7 +74,7 @@ const GenerationPage = (props: GenerationPageProps) => {
 
     return (
         <>
-            <Stack align='center' mb='xl'>
+            <Stack align='center' mb='xs'>
                 <Group>
                     <Title mx='auto'>
                         <Box
@@ -118,8 +117,11 @@ const GenerationPage = (props: GenerationPageProps) => {
                         //     </Group>
                         // }
                         disabled={isLoading}
+                        px='sm'
                     >
-                        Generate
+                        <Group gap='xs'>
+                            <FaCog /> Generate
+                        </Group>
                     </Button>
                     {isLoading && (
                         <ActionIcon
@@ -135,12 +137,12 @@ const GenerationPage = (props: GenerationPageProps) => {
                         </ActionIcon>
                     )}
                 </Group>
-                <Divider
+                {/* <Divider
                     w='100%'
                     size='md'
                     color={theme.colors.blue[2]}
                     opacity={0.5}
-                />
+                /> */}
                 {error && (
                     <Alert
                         color='red'
@@ -159,7 +161,7 @@ const GenerationPage = (props: GenerationPageProps) => {
             )}
 
             {/* Collection */}
-            <Box my='100px'>
+            <Box mt='xl'>
                 <CardGrid header={<FaBookmark />} data={[]} />
             </Box>
         </>

@@ -58,20 +58,20 @@ function App() {
         // { to: "/lore", label: "Lore", icon: <FaBook /> },
 
         { to: "/collection", label: "Collection", icon: <FaBookmark /> },
-        { to: "/name", label: "Names ⚡", icon: <FaIdCard /> },
+        { to: "/name", label: "⚡Names", icon: <FaIdCard /> },
         {
             to: "/wild-magic",
-            label: "Wild Magic ⚡",
+            label: "⚡Wild Magic",
             icon: <GiExplosionRays />,
         },
         {
             to: "/loot",
-            label: "Loot ⚡",
+            label: "⚡ Loot",
             icon: <GiSwapBag />,
         },
         {
             to: "/secrets-clues",
-            label: "Secrets/Clues ⚡",
+            label: "⚡ Secrets/Clues",
             icon: <FaMagnifyingGlass />,
         },
         { to: "/magic-item", label: "Magic Items", icon: <TbCrystalBall /> },
@@ -188,7 +188,8 @@ function App() {
                             >
                                 <Flex align='center' justify='space-between'>
                                     <Group>
-                                        {link.icon} <Text>{link.label}</Text>{" "}
+                                        {link.icon}{" "}
+                                        <Text>{link.label}</Text>{" "}
                                     </Group>
                                     {(generators[link.to.slice(1)]
                                         ?.isLoading && (
@@ -267,7 +268,7 @@ function App() {
                                             label={navLinkData.label}
                                             icon={navLinkData.icon}
                                             generatorType={navLinkData.to.slice(
-                                                1
+                                                1,
                                             )}
                                             onGenerate={() => {
                                                 //setCoinCount(coinCount - 1);
