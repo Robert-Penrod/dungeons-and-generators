@@ -1,3 +1,4 @@
+import CardGrid from "@/components/CardGrid";
 import {
     ActionIcon,
     Alert,
@@ -5,16 +6,15 @@ import {
     Button,
     Divider,
     Group,
-    SimpleGrid,
     Stack,
     Textarea,
     Title,
     useMantineTheme,
 } from "@mantine/core";
 import { type ReactNode } from "react";
-import { FaStop } from "react-icons/fa6";
+import { FaCog } from "react-icons/fa";
+import { FaBookmark, FaStop } from "react-icons/fa6";
 import { RiErrorWarningLine } from "react-icons/ri";
-import ContentCard from "../components/ContentCard";
 import GenerativeLoader from "../components/loaders/GenerativeLoader";
 import { useGenerateContent } from "../hooks/useGenerateContent";
 
@@ -155,22 +155,13 @@ const GenerationPage = (props: GenerationPageProps) => {
             {isLoading ? (
                 <GenerativeLoader />
             ) : (
-                <SimpleGrid
-                    cols={{ base: 1, xs: 1, sm: 1, md: 2, lg: 3, xl: 3 }}
-                    spacing='md'
-                >
-                    {data?.map((item, index) => {
-                        return (
-                            <ContentCard
-                                key={index}
-                                title={item.name}
-                                content={item.description}
-                                iconString={item.iconString}
-                            />
-                        );
-                    })}
-                </SimpleGrid>
+                <CardGrid header={<FaCog />} data={data} />
             )}
+
+            {/* Collection */}
+            <Box my='100px'>
+                <CardGrid header={<FaBookmark />} data={[]} />
+            </Box>
         </>
     );
 };
