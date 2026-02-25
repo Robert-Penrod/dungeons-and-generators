@@ -8,12 +8,13 @@ import {
     Flex,
     Group,
     Loader,
+    Menu,
     Stack,
     Text,
     useMantineTheme,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import {
     FaBookmark,
     FaIdCard,
@@ -36,21 +37,28 @@ import { RiQuestionnaireFill } from "react-icons/ri";
 import { TbCrystalBall } from "react-icons/tb";
 import { NavLink, Route, Routes } from "react-router";
 import "./App.css";
+import { useAuth } from "./auth/AuthProvider";
 import { GeneratorDataContext } from "./context/GeneratorDataContext";
-import { signInAnonymous } from "./features/auth/authActions";
 import CollectionPage from "./pages/CollectionPage";
 import GenerationPage from "./pages/GenerationPage";
 import HomePage from "./pages/HomePage";
 import LinkPage from "./pages/LinkPage";
 
 function App() {
+    const { user, loading, signInWithGoogle, signOut } = useAuth();
+
+    useEffect(() => {}, []);
+
     const [opened, { toggle, close }] = useDisclosure();
     const theme = useMantineTheme();
-    //const { user, loading } = useAuth();
-    const user = 1;
-    const loading = false;
 
     const { generators } = useContext(GeneratorDataContext);
+
+    useEffect(() => {
+        console.log(user);
+    }, [user]);
+
+    if (loading) return <div>Loading...</div>;
 
     //const [coinCount, setCoinCount] = useState<number>(200);
 
@@ -150,7 +158,34 @@ function App() {
                                 <FaCoins color='gold' size={24} />
                             </Group>
                         )} */}
-                        <Avatar src={null} alt='nothing yet' />
+
+                        {!user && (
+                            <Button onClick={() => signInWithGoogle()}>
+                                Sign In
+                            </Button>
+                        )}
+                        {user && (
+                            <>
+                                <Menu position='bottom-end' withArrow={true}>
+                                    <Menu.Target>
+                                        <Avatar
+                                            src={
+                                                user?.identities?.[0]
+                                                    .identity_data
+                                                    ?.avatar_url ?? null
+                                            }
+                                            alt='nothing yet'
+                                        />
+                                    </Menu.Target>
+                                    <Menu.Dropdown mx={-10}>
+                                        <Menu.Label>Account</Menu.Label>
+                                        <Menu.Item onClick={() => signOut()}>
+                                            Signout
+                                        </Menu.Item>
+                                    </Menu.Dropdown>
+                                </Menu>
+                            </>
+                        )}
                     </Group>
                 </Flex>
             </AppShell.Header>
@@ -247,7 +282,7 @@ function App() {
                                     textTransform: "uppercase",
                                     letterSpacing: "0.5px",
                                 }}
-                                onClick={() => signInAnonymous()}
+                                onClick={() => signInWithGoogle()}
                             >
                                 START GENERATING
                             </Button>

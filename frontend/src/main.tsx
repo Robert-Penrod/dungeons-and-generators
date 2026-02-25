@@ -9,8 +9,8 @@ import "./index.css";
 import "@mantine/core/styles.css";
 import "@mantine/tiptap/styles.css";
 
+import { AuthProvider } from "./auth/AuthProvider.tsx";
 import { GeneratorDataProvider } from "./context/GeneratorDataContext.tsx";
-import { AuthProvider } from "./features/auth/AuthContext.tsx";
 import { theme } from "./theme.ts";
 
 createRoot(document.getElementById("root")!).render(
@@ -24,5 +24,5 @@ createRoot(document.getElementById("root")!).render(
                 </AuthProvider>
             </MantineProvider>
         </BrowserRouter>
-    </StrictMode>
+    </StrictMode>,
 );
