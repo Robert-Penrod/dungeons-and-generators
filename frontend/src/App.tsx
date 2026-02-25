@@ -166,7 +166,11 @@ function App() {
                         )}
                         {user && (
                             <>
-                                <Menu position='bottom-end' withArrow={true}>
+                                <Menu
+                                    position='bottom-end'
+                                    withArrow={true}
+                                    withinPortal={false}
+                                >
                                     <Menu.Target>
                                         <Avatar
                                             src={
@@ -177,7 +181,7 @@ function App() {
                                             alt='nothing yet'
                                         />
                                     </Menu.Target>
-                                    <Menu.Dropdown mx={-10}>
+                                    <Menu.Dropdown>
                                         <Menu.Label>Account</Menu.Label>
                                         <Menu.Item onClick={() => signOut()}>
                                             Signout
