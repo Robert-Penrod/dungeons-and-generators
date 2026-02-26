@@ -58,7 +58,7 @@ function App() {
         console.log(user);
     }, [user]);
 
-    if (loading) return <div>Loading...</div>;
+    // if (loading) return <div>Loading...</div>;
 
     //const [coinCount, setCoinCount] = useState<number>(200);
 
@@ -176,13 +176,16 @@ function App() {
                                             src={
                                                 user?.identities?.[0]
                                                     .identity_data
-                                                    ?.avatar_url ?? null
+                                                    ?.avatar_url ?? "null"
                                             }
                                             alt='nothing yet'
                                         />
                                     </Menu.Target>
                                     <Menu.Dropdown>
-                                        <Menu.Label>Account</Menu.Label>
+                                        <Menu.Label>
+                                            {user?.identities?.[0].identity_data
+                                                ?.name ?? null}
+                                        </Menu.Label>
                                         <Menu.Item onClick={() => signOut()}>
                                             Signout
                                         </Menu.Item>
