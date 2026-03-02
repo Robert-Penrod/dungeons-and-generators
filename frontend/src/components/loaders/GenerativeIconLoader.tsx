@@ -170,7 +170,13 @@ const icons = [
     GiFairyWand,
 ];
 
-const GenerativeIconLoader = () => {
+interface GenerativeIconLoaderProps {
+    interval?: number;
+}
+
+const GenerativeIconLoader = ({
+    interval = 5000,
+}: GenerativeIconLoaderProps) => {
     const size = "64px";
     const theme = useMantineTheme();
 
@@ -183,7 +189,7 @@ const GenerativeIconLoader = () => {
     // Render the icons with props applied
     const elements = icons.map((Icon, i) => <Icon key={i} {...iconProps} />);
 
-    return <ElementLoader elements={elements} />;
+    return <ElementLoader interval={interval} elements={elements} />;
 };
 
 export default GenerativeIconLoader;

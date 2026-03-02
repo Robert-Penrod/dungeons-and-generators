@@ -58,8 +58,6 @@ function App() {
         console.log(user);
     }, [user]);
 
-    // if (loading) return <div>Loading...</div>;
-
     //const [coinCount, setCoinCount] = useState<number>(200);
 
     const navbarLinks = [
@@ -93,13 +91,6 @@ function App() {
         // { to: "/riddle", label: "Riddles", icon: <GiScrollUnfurled /> },
         { to: "/other-tools", label: "Other Tools", icon: <FaLink /> },
     ];
-
-    if (loading)
-        return (
-            <Group justify='center' align='center' h='100vh'>
-                <Loader size='lg' />
-            </Group>
-        );
 
     return (
         <AppShell
@@ -197,6 +188,19 @@ function App() {
                 </Flex>
             </AppShell.Header>
 
+            {loading && (
+                <AppShell.Main
+                    style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
+                    className='paper-bg'
+                >
+                    <Loader size={150} />
+                </AppShell.Main>
+            )}
+
             {user && (
                 <AppShell.Navbar
                     style={{
@@ -258,72 +262,78 @@ function App() {
                     </Stack>
                 </AppShell.Navbar>
             )}
-            <AppShell.Main className='paper-bg'>
-                {!user ? (
-                    <Container>
-                        <HomePage />
-                        <Center mt={50}>
-                            <Button
-                                size='lg'
-                                radius='md'
-                                px='md'
-                                color='lime.5'
-                                fw={700}
-                                variant='gradient'
-                                gradient={{
-                                    from: "green.7",
-                                    to: "teal.8",
-                                    deg: 45,
-                                }}
-                                leftSection={
-                                    <GiSpellBook
-                                        style={{
-                                            transform: "translateY(-5px)",
-                                        }}
-                                        size={32}
-                                    />
-                                }
-                                style={{
-                                    boxShadow:
-                                        "0 0 12px rgba(100, 255, 150, 0.5)",
-                                    textTransform: "uppercase",
-                                    letterSpacing: "0.5px",
-                                }}
-                                onClick={() => signInWithGoogle()}
-                            >
-                                START GENERATING
-                            </Button>
-                        </Center>
-                    </Container>
-                ) : (
-                    <Routes>
-                        <Route path='/' element={<HomePage />} />
-                        <Route path='other-tools' element={<LinkPage />} />
-                        <Route path='collection' element={<CollectionPage />} />
-                        {/* <Route path='/lore' element={<LorePage />} /> */}
-                        {navbarLinks.map((navLinkData) => {
-                            return (
-                                <Route
-                                    path={navLinkData.to}
-                                    element={
-                                        <GenerationPage
-                                            label={navLinkData.label}
-                                            icon={navLinkData.icon}
-                                            generatorType={navLinkData.to.slice(
-                                                1,
-                                            )}
-                                            onGenerate={() => {
-                                                //setCoinCount(coinCount - 1);
+
+            {!loading && (
+                <AppShell.Main className='paper-bg'>
+                    {!user ? (
+                        <Container>
+                            <HomePage />
+                            <Center mt={50}>
+                                <Button
+                                    size='lg'
+                                    radius='md'
+                                    px='md'
+                                    color='lime.5'
+                                    fw={700}
+                                    variant='gradient'
+                                    gradient={{
+                                        from: "green.7",
+                                        to: "teal.8",
+                                        deg: 45,
+                                    }}
+                                    leftSection={
+                                        <GiSpellBook
+                                            style={{
+                                                transform: "translateY(-5px)",
                                             }}
+                                            size={32}
                                         />
                                     }
-                                />
-                            );
-                        })}
-                        ;
-                    </Routes>
-                )}
-            </AppShell.Main>
+                                    style={{
+                                        boxShadow:
+                                            "0 0 12px rgba(100, 255, 150, 0.5)",
+                                        textTransform: "uppercase",
+                                        letterSpacing: "0.5px",
+                                    }}
+                                    onClick={() => signInWithGoogle()}
+                                >
+                                    START GENERATING
+                                </Button>
+                            </Center>
+                        </Container>
+                    ) : (
+                        <Routes>
+                            <Route path='/' element={<HomePage />} />
+                            <Route path='other-tools' element={<LinkPage />} />
+                            <Route
+                                path='collection'
+                                element={<CollectionPage />}
+                            />
+                            {/* <Route path='/lore' element={<LorePage />} /> */}
+                            {navbarLinks.map((navLinkData) => {
+                                return (
+                                    <Route
+                                        path={navLinkData.to}
+                                        element={
+                                            <GenerationPage
+                                                label={navLinkData.label}
+                                                icon={navLinkData.icon}
+                                                generatorType={navLinkData.to.slice(
+                                                    1,
+                                                )}
+                                                onGenerate={() => {
+                                                    //setCoinCount(coinCount - 1);
+                                                }}
+                                            />
+                                        }
+                                    />
+                                );
+                            })}
+                            ;
+                        </Routes>
+                    )}
+                </AppShell.Main>
+            )}
         </AppShell>
     );
 }

@@ -6,10 +6,10 @@ interface ElementLoaderProps {
     interval?: number; // ms
 }
 
-export const ElementLoader: React.FC<ElementLoaderProps> = ({
+export const ElementLoader = ({
     elements,
     interval = 5000,
-}) => {
+}: ElementLoaderProps) => {
     const [shuffled, setShuffled] = useState<React.ReactNode[]>([]);
     const [index, setIndex] = useState(0);
     const [visible, setVisible] = useState(true);
