@@ -1,7 +1,7 @@
 [build]
   base = "frontend"
   publish = "dist"
-  command = "npm install ../backend && npm run build"
+  command = "npm --prefix ../backend install  && npm run build"
 
 [functions]
   # Point up from 'frontend' into 'backend/netlify/functions'
