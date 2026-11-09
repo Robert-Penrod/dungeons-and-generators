@@ -13,7 +13,6 @@ const HomePage = () => {
 
     return (
         <Container size='sm'>
-            w
             <Center>
                 <Stack align='center' gap='xl'>
                     <Title visibleFrom='sm' ta='center'>
