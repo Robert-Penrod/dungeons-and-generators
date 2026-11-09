@@ -1,5 +1,5 @@
 /** Title = Capitalise words, replacing "-" with " ". */
-export const makeTitle = (key: string) =>
+export const makeTitleFromURL = (key: string) =>
     key
         .split("-")
         .map((w) => w[0].toUpperCase() + w.slice(1))

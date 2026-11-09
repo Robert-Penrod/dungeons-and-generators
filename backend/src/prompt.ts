@@ -1,4 +1,4 @@
-const lightModelName = "gpt-4.1-nano-2025-04-14";
+const lightModelName = "gpt-6-luna";
 
 let characterExamples = `
 Name: Marcus Shadowmourne
@@ -175,7 +175,7 @@ Answer: <Riddle Answer>
         const lootFormat = Array.from({ length: count }, (_, i) => {
             const items = Array.from(
                 { length: 5 },
-                (_, j) => `- name ${j + 1}`
+                (_, j) => `- name ${j + 1}`,
             ).join("\n");
             return `Name: <Name List Name>\n${items}`;
         }).join("\n\n");
@@ -197,7 +197,7 @@ ${lootFormat}
         const lootFormat = Array.from({ length: count }, (_, i) => {
             const items = Array.from(
                 { length: 5 },
-                (_, j) => `- item ${j + 1} (gp value)`
+                (_, j) => `- item ${j + 1} (gp value)`,
             ).join("\n");
             return `Name: <Loot Name>\n${items}`;
         }).join("\n\n");

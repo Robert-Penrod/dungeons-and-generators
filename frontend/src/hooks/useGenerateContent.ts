@@ -3,7 +3,10 @@ import {
     type GeneratorEntry,
 } from "@/context/GeneratorDataContext";
 import { useCallback, useContext, useEffect, useRef } from "react";
-import { makeEndpoint, makeTitle } from "../features/lib/generatorCatalogue";
+import {
+    makeEndpoint,
+    makeTitleFromURL,
+} from "../features/lib/generatorCatalogue";
 import { parseContent } from "../features/lib/parseContent";
 
 const emptyEntry: GeneratorEntry = {
@@ -16,7 +19,7 @@ const emptyEntry: GeneratorEntry = {
 
 export function useGenerateContent(generatorType: string) {
     const { generators, setGenerators } = useContext(GeneratorDataContext);
-    const title = makeTitle(generatorType);
+    const title = makeTitleFromURL(generatorType);
 
     // We only track the *current* request for this hook for `cancel()`
     const controllerRef = useRef<AbortController | null>(null);
@@ -31,8 +34,8 @@ export function useGenerateContent(generatorType: string) {
             !generator.isSeen
         ) {
             setGenerators((prev) => {
-                const prevEntry: GeneratorEntry =
-                    prev[generatorType] ?? emptyEntry;
+                const prevEntry: GeneratorEntry = prev[generatorType] ??
+                    emptyEntry;
 
                 return {
                     ...prev,
@@ -53,8 +56,8 @@ export function useGenerateContent(generatorType: string) {
 
             // Mark this generatorType as loading, clear error
             setGenerators((prev) => {
-                const prevEntry: GeneratorEntry =
-                    prev[generatorType] ?? emptyEntry;
+                const prevEntry: GeneratorEntry = prev[generatorType] ??
+                    emptyEntry;
 
                 return {
                     ...prev,
@@ -82,7 +85,7 @@ export function useGenerateContent(generatorType: string) {
                             temperature,
                             ...(prompt ? { userPrompt: prompt } : {}),
                         }),
-                    }
+                    },
                 );
 
                 if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -92,8 +95,8 @@ export function useGenerateContent(generatorType: string) {
 
                 // Update data + loading for this generatorType
                 setGenerators((prev) => {
-                    const prevEntry: GeneratorEntry =
-                        prev[generatorType] ?? emptyEntry;
+                    const prevEntry: GeneratorEntry = prev[generatorType] ??
+                        emptyEntry;
 
                     return {
                         ...prev,
@@ -112,16 +115,17 @@ export function useGenerateContent(generatorType: string) {
                 }
 
                 setGenerators((prev) => {
-                    const prevEntry: GeneratorEntry =
-                        prev[generatorType] ?? emptyEntry;
+                    const prevEntry: GeneratorEntry = prev[generatorType] ??
+                        emptyEntry;
 
                     return {
                         ...prev,
                         [generatorType]: {
                             ...prevEntry,
                             isLoading: false,
-                            error:
-                                e instanceof Error ? e : new Error(String(e)),
+                            error: e instanceof Error
+                                ? e
+                                : new Error(String(e)),
                         },
                     };
                 });
@@ -132,7 +136,7 @@ export function useGenerateContent(generatorType: string) {
                 }
             }
         },
-        [generatorType, setGenerators]
+        [generatorType, setGenerators],
     );
 
     const cancel = useCallback(() => {
