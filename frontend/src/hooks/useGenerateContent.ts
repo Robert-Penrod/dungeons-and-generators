@@ -71,11 +71,9 @@ export function useGenerateContent(generatorType: string) {
             });
 
             try {
+                const endpoint = `api/${makeEndpoint(generatorType)}`;
                 const res = await fetch(
-                    // `http://localhost:5000/dng-app-5f39e/us-central1/api/${makeEndpoint(
-                    //     generatorType
-                    // )}`,
-                    `https://api.dng.quest/${makeEndpoint(generatorType)}`,
+                    endpoint,
                     {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },

@@ -7,7 +7,7 @@ import { z } from "zod";
 import { chatCompletion } from "./openai";
 import { GeneratorKind, PROMPTS } from "./prompt";
 
-const app = express();
+export const app = express();
 
 app.use(express.json());
 
@@ -255,6 +255,7 @@ app.post(
     },
 );
 
-app.listen(3000, () => {
-    console.log("Server is running on port 3000");
-});
+// Using netlify serverless functions, so no need to listen on a port.
+// app.listen(3000, () => {
+//     console.log("Server is running on port 3000");
+// });

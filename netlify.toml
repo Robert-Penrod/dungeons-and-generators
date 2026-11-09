@@ -1,9 +1,23 @@
 [build]
-base = "frontend"
-publish = "dist"
-command = "npm run build"
+  base = "frontend"
+  publish = "dist"
+  command = "npm run build"
 
+[functions]
+  # Point up from 'frontend' into 'backend/netlify/functions'
+  directory = "../backend/netlify/functions"
+  node_bundler = "esbuild"
+  external_node_modules = ["express"]
+
+# 1. API Redirect MUST come first!
 [[redirects]]
-from = "/*"
-to   = "/index.html"
-status = 200
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+  force = true
+
+# 2. Frontend SPA Catch-all MUST come last!
+[[redirects]]
+  from = "/*"
+  to   = "/index.html"
+  status = 200

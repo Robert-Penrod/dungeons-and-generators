@@ -46,9 +46,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         signInWithGoogle: async () => {
             const { error } = await supabase.auth.signInWithOAuth({
                 provider: "google",
-                // options: {
-                //     redirectTo: `${window.location.origin}/`, // auth/callback
-                // },
+                options: {
+                    redirectTo: `${window.location.origin}`, // dynamically uses localhost when testing locally
+                },
             });
             if (error) throw error;
         },
